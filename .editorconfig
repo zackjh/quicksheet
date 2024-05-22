@@ -1,0 +1,29 @@
+root = true
+
+# Universal settings for all files
+[*]
+charset = utf-8                  # Set file character encoding to UTF-8
+indent_style = space             # Use spaces for indentation
+indent_size = 2                  # Use 2 spaces for indentation
+trim_trailing_whitespace = true  # Trim trailing whitespace
+insert_final_newline = true      # Ensure file ends with a newline
+end_of_line = lf                 # Use LF for line endings, good for cross-platform compatibility
+
+# Specific settings for markdown files
+[*.md]
+trim_trailing_whitespace = false  # Do not trim trailing whitespace in Markdown files
+
+# Specific settings for JSON files
+[*.json]
+indent_style = space
+indent_size = 2
+
+# Specific settings for TypeScript files
+[*.ts]
+indent_style = space
+indent_size = 2
+
+# Specific settings for TypeScript React files
+[*.tsx]
+indent_style = space
+indent_size = 2

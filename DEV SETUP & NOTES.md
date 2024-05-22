@@ -1,0 +1,7 @@
+- Install VSCode Prettier extension (and turn on 'format on save')
+- Install VSCode EditorConfig extension
+- Install VSCode ESLint extension
+- Run `npm install` to install dependencies
+- Refer to `package.json` for scripts
+- Remember to use conventional commit messages
+- Deal with all linting errors before committing

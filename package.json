@@ -9,7 +9,10 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx ."
+    "lint": "eslint --ext .ts,.tsx .",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md}'",
+    "test": "jest",
+    "pre-commit": "npm run lint && npm run format && npm run test"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.4.0",
@@ -29,9 +32,11 @@
     "css-loader": "^6.11.0",
     "electron": "30.0.6",
     "eslint": "^8.57.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-import": "^2.29.1",
     "fork-ts-checker-webpack-plugin": "^7.3.0",
     "node-loader": "^2.0.0",
+    "prettier": "3.2.5",
     "style-loader": "^3.3.4",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
