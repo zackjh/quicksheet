@@ -1,3 +1,5 @@
+# Dev Setup & Notes
+
 - Install VSCode Prettier extension (and turn on 'format on save')
 - Install VSCode EditorConfig extension
 - Install VSCode ESLint extension
