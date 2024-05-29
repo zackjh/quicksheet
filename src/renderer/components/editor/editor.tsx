@@ -8,15 +8,16 @@ const extensions = [
   StarterKit,
 ]
 
-const content = '<p>Hello World!</p>'
+const content = '<p>Begin typing...</p>'
 
 const Tiptap = () => {
   return (
-    <EditorProvider extensions={extensions} content={content} slotBefore={<MyEditorToolbar />}>
+    <div >
+    <EditorProvider extensions={extensions} content={content} slotBefore={<MyEditorToolbar/>} slotAfter={<EditorJSONPreview/>}>
       <FloatingMenu editor={null}>This is the floating menu</FloatingMenu>
       <BubbleMenu editor={null}>This is the bubble menu</BubbleMenu>
-      <EditorJSONPreview />
     </EditorProvider>
+    </div>
   )
 }
 

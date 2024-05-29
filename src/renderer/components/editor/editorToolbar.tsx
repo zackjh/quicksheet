@@ -22,7 +22,12 @@ export default function MyEditorToolbar() {
       >
         bold
       </button>
-      <button>italic</button>
+      <button
+        onClick={() => editor.chain().focus().toggleItalic().run()}
+        className={editor.isActive('italic') ? 'is-active' : ''}
+      >
+        toggleItalic
+      </button>
       <button>underline</button>
     </div>
   )
