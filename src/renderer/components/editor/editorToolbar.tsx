@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useCurrentEditor } from '@tiptap/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBold, faItalic, faUnderline, faFileImport } from '@fortawesome/free-solid-svg-icons';
+import { faBold, faItalic, faUnderline, faFileImport , faPalette} from '@fortawesome/free-solid-svg-icons';
 
 export default function MyEditorToolbar() {
   const { editor } = useCurrentEditor();
@@ -19,6 +19,7 @@ export default function MyEditorToolbar() {
       <BoldButton editor={editor} />
       <ItalicButton editor={editor} />
       <UnderlineButton editor={editor} />
+      <ChangeColorButton editor={editor} />
       <ImportFileButton editor={editor} />
     </div>
   );
@@ -56,6 +57,31 @@ function UnderlineButton({ editor }: { editor: any }) {
     >
       <FontAwesomeIcon icon={faUnderline} />
     </button>
+  );
+}
+
+function ChangeColorButton({ editor }: { editor: any }) {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    editor.chain().focus().setColor(event.target.value).run();
+  };
+
+  return (
+    <>
+      <button onClick={() => inputRef.current?.click()} >
+        <FontAwesomeIcon icon={faPalette} />
+      </button>
+      <input
+        style={{display: 'none' , position: 'absolute', top: '0', right: '0' }}
+        type="color"
+        ref={inputRef}
+        onChange={handleColorChange}
+        value={editor.getAttributes('textStyle').color}
+        data-testid="setColor"
+
+      />
+    </>
   );
 }
 
