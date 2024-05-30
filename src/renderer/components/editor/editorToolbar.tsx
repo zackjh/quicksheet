@@ -1,13 +1,15 @@
 import React, { useRef } from 'react';
 import { useCurrentEditor } from '@tiptap/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBold, faItalic, faUnderline, faFileImport , faPalette} from '@fortawesome/free-solid-svg-icons';
+import { faBold, faItalic, faUnderline, faFileImport , faPalette, faHighlighter, faAlignLeft, faAlignCenter, faAlignRight, faAlignJustify, faUndo, faRedo} from '@fortawesome/free-solid-svg-icons';
 
 export default function MyEditorToolbar() {
   const { editor } = useCurrentEditor();
   const style = {
     border: '2px solid black',
-    padding: '2px'
+    padding: '2px',
+    display: 'flex',
+    justifyContent: 'space-between'
   };
 
   if (!editor) {
@@ -16,14 +18,47 @@ export default function MyEditorToolbar() {
 
   return (
     <div style={style}>
+      <div>
+        <UndoButton editor={editor}/>
+        <RedoButton editor={editor}/>
+      </div>
+
+      <div>
       <BoldButton editor={editor} />
       <ItalicButton editor={editor} />
       <UnderlineButton editor={editor} />
       <ChangeColorButton editor={editor} />
+      <HighlightButton editor={editor} />
+      </div>
+      <div>
+      <LeftAdjustButton editor={editor} />
+      <CenterAdjustButton editor={editor} />
+      <RightAdjustButton editor={editor} />
+      <JustifyAdjustButton editor={editor} />
+      </div>
+
       <ImportFileButton editor={editor} />
     </div>
   );
 }
+// Undo and Redo buttons
+function UndoButton({ editor }: { editor: any }) {
+  return (
+    <button onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()} >
+      <FontAwesomeIcon icon={faUndo} />
+    </button>
+  );
+}
+
+function RedoButton({ editor }: { editor: any }) {
+  return (
+    <button onClick={() => editor.chain().focus().redo().run()} disabled={!editor.can().redo()} >
+      <FontAwesomeIcon icon={faRedo} />
+    </button>
+  );
+}
+
+// Text style buttons
 
 function ItalicButton({ editor }: { editor: any }) {
   return (
@@ -85,6 +120,64 @@ function ChangeColorButton({ editor }: { editor: any }) {
   );
 }
 
+function HighlightButton({ editor }: { editor: any }) {
+  return (
+    <button
+      onClick={() => editor.chain().focus().toggleHighlight().run()} className={editor.isActive('highlight') ? 'is-active' : ''}>
+      <FontAwesomeIcon icon={faHighlighter} />
+    </button>
+  );
+}
+
+//Align buttons
+
+function LeftAdjustButton({ editor }: { editor: any }) {
+  return (
+    <button
+      onClick={() => editor.chain().focus().setTextAlign('left').run()}
+      className={editor.isActive('left') ? 'is-active' : ''}
+    >
+      <FontAwesomeIcon icon={faAlignLeft} />
+    </button>
+  );
+}
+
+function CenterAdjustButton({ editor }: { editor: any }) {
+  return (
+    <button
+      onClick={() => editor.chain().focus().setTextAlign('center').run()}
+      className={editor.isActive('center') ? 'is-active' : ''}
+    >
+      <FontAwesomeIcon icon={faAlignCenter} />
+    </button>
+  );
+}
+
+function RightAdjustButton({ editor }: { editor: any }) {
+  return (
+    <button
+      onClick={() => editor.chain().focus().setTextAlign('right').run()}
+      className={editor.isActive('right') ? 'is-active' : ''}
+    >
+      <FontAwesomeIcon icon={faAlignRight} />
+    </button>
+  );
+}
+
+function JustifyAdjustButton({ editor }: { editor: any }) {
+  return (
+    <button
+      onClick={() => editor.chain().focus().setTextAlign('justify').run()}
+      className={editor.isActive('justify') ? 'is-active' : ''}
+    >
+      <FontAwesomeIcon icon={faAlignJustify} />
+    </button>
+  );
+}
+
+
+
+
 function ImportFileButton({ editor }: { editor: any }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -113,7 +206,7 @@ function ImportFileButton({ editor }: { editor: any }) {
 
   return (
     <>
-      <button style={{ marginLeft: '10px' }} onClick={handleClick}>
+      <button  onClick={handleClick}>
         <FontAwesomeIcon icon={faFileImport} /> Import File
       </button>
       <input

@@ -6,5 +6,5 @@ export default function WordCounter () {
   const charCount = editor?.storage.characterCount.characters();
   const wordCount = editor?.storage.characterCount.words();
 
-  return <p style={{color:"GrayText"}}>Character count: {charCount} Word Count: {wordCount}</p>;
+  return <p style={{color:"GrayText",marginTop:"50px"}}>Character count: {charCount} Word Count: {wordCount}</p>;
 };
