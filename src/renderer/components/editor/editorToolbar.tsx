@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import { useCurrentEditor } from '@tiptap/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBold, faItalic, faUnderline, faFileImport , faPalette, faHighlighter, faAlignLeft, faAlignCenter, faAlignRight, faAlignJustify, faUndo, faRedo} from '@fortawesome/free-solid-svg-icons';
+import { faBold, faItalic, faUnderline, faFileImport , faPalette, faHighlighter, faAlignLeft, faAlignCenter, faAlignRight, faAlignJustify, faUndo, faRedo, faCode} from '@fortawesome/free-solid-svg-icons';
+import  PrintPDF  from './printPDF';
 
 export default function MyEditorToolbar() {
   const { editor } = useCurrentEditor();
@@ -29,6 +30,7 @@ export default function MyEditorToolbar() {
       <UnderlineButton editor={editor} />
       <ChangeColorButton editor={editor} />
       <HighlightButton editor={editor} />
+      <CodeBlockButton editor={editor} />
       </div>
       <div>
       <LeftAdjustButton editor={editor} />
@@ -38,6 +40,7 @@ export default function MyEditorToolbar() {
       </div>
 
       <ImportFileButton editor={editor} />
+      <PrintPDF/>
     </div>
   );
 }
@@ -125,6 +128,16 @@ function HighlightButton({ editor }: { editor: any }) {
     <button
       onClick={() => editor.chain().focus().toggleHighlight().run()} className={editor.isActive('highlight') ? 'is-active' : ''}>
       <FontAwesomeIcon icon={faHighlighter} />
+    </button>
+  );
+}
+function CodeBlockButton({ editor }: { editor: any }) {
+  return (
+    <button
+      onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+      className={editor.isActive('codeBlock') ? 'is-active' : ''}
+    >
+      <FontAwesomeIcon icon={faCode} />
     </button>
   );
 }
