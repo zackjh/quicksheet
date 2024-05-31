@@ -4,6 +4,15 @@
     "es6": true,
     "node": true
   },
+  "rules": {
+    "no-warning-comments": [
+      "warn",
+      {
+        "terms": ["TODO", "FIXME", "DEBUG"],
+        "location": "start"
+      }
+    ]
+  },
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",

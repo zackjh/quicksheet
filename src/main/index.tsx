@@ -43,7 +43,6 @@ const generatePDF = (): void => {
       contextIsolation: false,
     },
   });
-
   // Load the desired URL or HTML file
   windowToPDF.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
@@ -82,6 +81,7 @@ const generatePDF = (): void => {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow();
+  // TODO: Why do we need to generate this PDF?
   generatePDF(); // Generate PDF when the app is ready
 });
 
