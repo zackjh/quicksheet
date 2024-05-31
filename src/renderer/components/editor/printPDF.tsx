@@ -12,20 +12,22 @@ export default function PrintPDFButton() {
 
   const printPDF = () => {
     const opt = {
-      margin:       1,
-      filename:     'myfile.pdf',
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2 },
-      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+      margin: 1,
+      filename: 'myfile.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
       onBeforeSave: () => {
         // Workaround to preserve background colors
-        document.querySelectorAll('*').forEach(el => {
-          const bgColor = window.getComputedStyle(el).getPropertyValue('background-color');
+        document.querySelectorAll('*').forEach((el) => {
+          const bgColor = window
+            .getComputedStyle(el)
+            .getPropertyValue('background-color');
           if (bgColor && bgColor !== 'rgba(0, 0, 0, 0)') {
             (el as HTMLElement).style.backgroundColor = bgColor;
           }
         });
-      }
+      },
     };
 
     const content = editor.getHTML();
@@ -71,11 +73,11 @@ export default function PrintPDFButton() {
     `;
 
     const worker = html2pdf().from(styledContent).set(opt).save();
-  }
+  };
 
   return (
     <button id='PrintPDF' onClick={printPDF}>
-      Print PDF <FontAwesomeIcon icon={faPrint}/>
+      Print PDF <FontAwesomeIcon icon={faPrint} />
     </button>
   );
 }

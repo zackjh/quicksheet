@@ -1,8 +1,22 @@
 import React, { useRef } from 'react';
 import { useCurrentEditor } from '@tiptap/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBold, faItalic, faUnderline, faFileImport , faPalette, faHighlighter, faAlignLeft, faAlignCenter, faAlignRight, faAlignJustify, faUndo, faRedo, faCode} from '@fortawesome/free-solid-svg-icons';
-import  PrintPDF  from './printPDF';
+import {
+  faBold,
+  faItalic,
+  faUnderline,
+  faFileImport,
+  faPalette,
+  faHighlighter,
+  faAlignLeft,
+  faAlignCenter,
+  faAlignRight,
+  faAlignJustify,
+  faUndo,
+  faRedo,
+  faCode,
+} from '@fortawesome/free-solid-svg-icons';
+import PrintPDF from './printPDF';
 
 export default function MyEditorToolbar() {
   const { editor } = useCurrentEditor();
@@ -10,7 +24,7 @@ export default function MyEditorToolbar() {
     border: '2px solid black',
     padding: '2px',
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   };
 
   if (!editor) {
@@ -20,34 +34,37 @@ export default function MyEditorToolbar() {
   return (
     <div style={style}>
       <div>
-        <UndoButton editor={editor}/>
-        <RedoButton editor={editor}/>
+        <UndoButton editor={editor} />
+        <RedoButton editor={editor} />
       </div>
 
       <div>
-      <BoldButton editor={editor} />
-      <ItalicButton editor={editor} />
-      <UnderlineButton editor={editor} />
-      <ChangeColorButton editor={editor} />
-      <HighlightButton editor={editor} />
-      <CodeBlockButton editor={editor} />
+        <BoldButton editor={editor} />
+        <ItalicButton editor={editor} />
+        <UnderlineButton editor={editor} />
+        <ChangeColorButton editor={editor} />
+        <HighlightButton editor={editor} />
+        <CodeBlockButton editor={editor} />
       </div>
       <div>
-      <LeftAdjustButton editor={editor} />
-      <CenterAdjustButton editor={editor} />
-      <RightAdjustButton editor={editor} />
-      <JustifyAdjustButton editor={editor} />
+        <LeftAdjustButton editor={editor} />
+        <CenterAdjustButton editor={editor} />
+        <RightAdjustButton editor={editor} />
+        <JustifyAdjustButton editor={editor} />
       </div>
 
       <ImportFileButton editor={editor} />
-      <PrintPDF/>
+      <PrintPDF />
     </div>
   );
 }
 // Undo and Redo buttons
 function UndoButton({ editor }: { editor: any }) {
   return (
-    <button onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()} >
+    <button
+      onClick={() => editor.chain().focus().undo().run()}
+      disabled={!editor.can().undo()}
+    >
       <FontAwesomeIcon icon={faUndo} />
     </button>
   );
@@ -55,7 +72,10 @@ function UndoButton({ editor }: { editor: any }) {
 
 function RedoButton({ editor }: { editor: any }) {
   return (
-    <button onClick={() => editor.chain().focus().redo().run()} disabled={!editor.can().redo()} >
+    <button
+      onClick={() => editor.chain().focus().redo().run()}
+      disabled={!editor.can().redo()}
+    >
       <FontAwesomeIcon icon={faRedo} />
     </button>
   );
@@ -107,17 +127,16 @@ function ChangeColorButton({ editor }: { editor: any }) {
 
   return (
     <>
-      <button onClick={() => inputRef.current?.click()} >
+      <button onClick={() => inputRef.current?.click()}>
         <FontAwesomeIcon icon={faPalette} />
       </button>
       <input
-        style={{display: 'none' , position: 'absolute', top: '0', right: '0' }}
-        type="color"
+        style={{ display: 'none', position: 'absolute', top: '0', right: '0' }}
+        type='color'
         ref={inputRef}
         onChange={handleColorChange}
         value={editor.getAttributes('textStyle').color}
-        data-testid="setColor"
-
+        data-testid='setColor'
       />
     </>
   );
@@ -126,7 +145,9 @@ function ChangeColorButton({ editor }: { editor: any }) {
 function HighlightButton({ editor }: { editor: any }) {
   return (
     <button
-      onClick={() => editor.chain().focus().toggleHighlight().run()} className={editor.isActive('highlight') ? 'is-active' : ''}>
+      onClick={() => editor.chain().focus().toggleHighlight().run()}
+      className={editor.isActive('highlight') ? 'is-active' : ''}
+    >
       <FontAwesomeIcon icon={faHighlighter} />
     </button>
   );
@@ -188,9 +209,6 @@ function JustifyAdjustButton({ editor }: { editor: any }) {
   );
 }
 
-
-
-
 function ImportFileButton({ editor }: { editor: any }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -219,14 +237,14 @@ function ImportFileButton({ editor }: { editor: any }) {
 
   return (
     <>
-      <button  onClick={handleClick}>
+      <button onClick={handleClick}>
         <FontAwesomeIcon icon={faFileImport} /> Import File
       </button>
       <input
-        type="file"
+        type='file'
         ref={fileInputRef}
         style={{ display: 'none' }}
-        accept=".json"
+        accept='.json'
         onChange={handleFileChange}
       />
     </>

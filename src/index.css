@@ -15,7 +15,7 @@ body {
     background: #0d0d0d;
     border-radius: 0.5rem;
     color: #fff;
-    font-family: "JetBrainsMono", monospace;
+    font-family: 'JetBrainsMono', monospace;
     padding: 0.75rem 1rem;
 
     code {
@@ -25,7 +25,6 @@ body {
       padding: 0;
     }
   }
-
 }
 .has-focus {
   border-radius: 1px;

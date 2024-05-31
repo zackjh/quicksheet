@@ -41,7 +41,7 @@ const generatePDF = (): void => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-    }
+    },
   });
 
   // Load the desired URL or HTML file
@@ -54,22 +54,26 @@ const generatePDF = (): void => {
       marginsType: 0,
       printBackground: false,
       printSelectionOnly: false,
-      pageSize: "A4",
+      pageSize: 'A4',
     };
 
-    windowToPDF.webContents.printToPDF({
-      ...pdfSettings,
-      pageSize: "A4",
-    }).then(data => {
-      const pdfPath = path.join(__dirname, 'generated_pdf.pdf');
-      fs.writeFileSync(pdfPath, data);
-      console.log(`PDF generated successfully at ${pdfPath}`);
-      console.log(MAIN_WINDOW_WEBPACK_ENTRY);
-    }).catch(error => {
-      console.error(`Failed to generate PDF: ${error.message}`);
-    }).finally(() => {
-      windowToPDF.close();
-    });
+    windowToPDF.webContents
+      .printToPDF({
+        ...pdfSettings,
+        pageSize: 'A4',
+      })
+      .then((data) => {
+        const pdfPath = path.join(__dirname, 'generated_pdf.pdf');
+        fs.writeFileSync(pdfPath, data);
+        console.log(`PDF generated successfully at ${pdfPath}`);
+        console.log(MAIN_WINDOW_WEBPACK_ENTRY);
+      })
+      .catch((error) => {
+        console.error(`Failed to generate PDF: ${error.message}`);
+      })
+      .finally(() => {
+        windowToPDF.close();
+      });
   });
 };
 
