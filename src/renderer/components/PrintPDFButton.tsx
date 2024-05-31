@@ -72,6 +72,8 @@ export default function PrintPDFButton() {
       </html>
     `;
 
+    // Disable ESLint because the `worker` variable is needed for html2pdf to work correctly
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const worker = html2pdf().from(styledContent).set(opt).save();
   };
 

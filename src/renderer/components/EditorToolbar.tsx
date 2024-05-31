@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { useCurrentEditor } from '@tiptap/react';
+import { useRef } from 'react';
+import { Editor, useCurrentEditor } from '@tiptap/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBold,
@@ -59,7 +59,7 @@ export default function EditorToolbar() {
   );
 }
 
-function UndoButton({ editor }: { editor: any }) {
+function UndoButton({ editor }: { editor: Editor }) {
   return (
     <button
       onClick={() => editor.chain().focus().undo().run()}
@@ -70,7 +70,7 @@ function UndoButton({ editor }: { editor: any }) {
   );
 }
 
-function RedoButton({ editor }: { editor: any }) {
+function RedoButton({ editor }: { editor: Editor }) {
   return (
     <button
       onClick={() => editor.chain().focus().redo().run()}
@@ -81,7 +81,7 @@ function RedoButton({ editor }: { editor: any }) {
   );
 }
 
-function ItalicButton({ editor }: { editor: any }) {
+function ItalicButton({ editor }: { editor: Editor }) {
   return (
     <button
       onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -92,7 +92,7 @@ function ItalicButton({ editor }: { editor: any }) {
   );
 }
 
-function BoldButton({ editor }: { editor: any }) {
+function BoldButton({ editor }: { editor: Editor }) {
   return (
     <button
       onClick={() => editor.chain().focus().toggleBold().run()}
@@ -104,7 +104,7 @@ function BoldButton({ editor }: { editor: any }) {
   );
 }
 
-function UnderlineButton({ editor }: { editor: any }) {
+function UnderlineButton({ editor }: { editor: Editor }) {
   return (
     <button
       onClick={() => editor.chain().focus().toggleUnderline().run()}
@@ -116,7 +116,7 @@ function UnderlineButton({ editor }: { editor: any }) {
   );
 }
 
-function ChangeColorButton({ editor }: { editor: any }) {
+function ChangeColorButton({ editor }: { editor: Editor }) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -140,7 +140,7 @@ function ChangeColorButton({ editor }: { editor: any }) {
   );
 }
 
-function HighlightButton({ editor }: { editor: any }) {
+function HighlightButton({ editor }: { editor: Editor }) {
   return (
     <button
       onClick={() => editor.chain().focus().toggleHighlight().run()}
@@ -151,7 +151,7 @@ function HighlightButton({ editor }: { editor: any }) {
   );
 }
 
-function CodeBlockButton({ editor }: { editor: any }) {
+function CodeBlockButton({ editor }: { editor: Editor }) {
   return (
     <button
       onClick={() => editor.chain().focus().toggleCodeBlock().run()}
@@ -162,7 +162,7 @@ function CodeBlockButton({ editor }: { editor: any }) {
   );
 }
 
-function LeftAdjustButton({ editor }: { editor: any }) {
+function LeftAdjustButton({ editor }: { editor: Editor }) {
   return (
     <button
       onClick={() => editor.chain().focus().setTextAlign('left').run()}
@@ -173,7 +173,7 @@ function LeftAdjustButton({ editor }: { editor: any }) {
   );
 }
 
-function CenterAdjustButton({ editor }: { editor: any }) {
+function CenterAdjustButton({ editor }: { editor: Editor }) {
   return (
     <button
       onClick={() => editor.chain().focus().setTextAlign('center').run()}
@@ -184,7 +184,7 @@ function CenterAdjustButton({ editor }: { editor: any }) {
   );
 }
 
-function RightAdjustButton({ editor }: { editor: any }) {
+function RightAdjustButton({ editor }: { editor: Editor }) {
   return (
     <button
       onClick={() => editor.chain().focus().setTextAlign('right').run()}
@@ -195,7 +195,7 @@ function RightAdjustButton({ editor }: { editor: any }) {
   );
 }
 
-function JustifyAdjustButton({ editor }: { editor: any }) {
+function JustifyAdjustButton({ editor }: { editor: Editor }) {
   return (
     <button
       onClick={() => editor.chain().focus().setTextAlign('justify').run()}
@@ -206,7 +206,7 @@ function JustifyAdjustButton({ editor }: { editor: any }) {
   );
 }
 
-function ImportFileButton({ editor }: { editor: any }) {
+function ImportFileButton({ editor }: { editor: Editor }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
