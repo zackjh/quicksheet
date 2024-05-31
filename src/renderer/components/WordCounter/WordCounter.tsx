@@ -1,5 +1,6 @@
 import { useCurrentEditor } from '@tiptap/react';
-import React from 'react';
+
+import './WordCounter.css';
 
 export default function WordCounter() {
   const { editor } = useCurrentEditor();
@@ -7,8 +8,8 @@ export default function WordCounter() {
   const wordCount = editor?.storage.characterCount.words();
 
   return (
-    <p style={{ color: 'GrayText', marginTop: '50px' }}>
-      Character count: {charCount} Word Count: {wordCount}
+    <p className='wordCounter'>
+      Character Count: {charCount} Word Count: {wordCount}
     </p>
   );
 }

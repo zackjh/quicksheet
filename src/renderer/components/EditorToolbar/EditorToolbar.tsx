@@ -1,4 +1,7 @@
 import { useRef } from 'react';
+
+import PrintPDF from '../PrintPDFButton';
+
 import { Editor, useCurrentEditor } from '@tiptap/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -16,45 +19,32 @@ import {
   faRedo,
   faCode,
 } from '@fortawesome/free-solid-svg-icons';
-import PrintPDF from './PrintPDFButton';
+
+import './EditorToolbar.css';
 
 export default function EditorToolbar() {
   const { editor } = useCurrentEditor();
-  const style = {
-    border: '2px solid black',
-    padding: '2px',
-    display: 'flex',
-    justifyContent: 'space-between',
-  };
 
   if (!editor) {
     return null;
   }
 
   return (
-    <div style={style}>
-      <div>
-        <UndoButton editor={editor} />
-        <RedoButton editor={editor} />
-      </div>
-
-      <div>
-        <BoldButton editor={editor} />
-        <ItalicButton editor={editor} />
-        <UnderlineButton editor={editor} />
-        <ChangeColorButton editor={editor} />
-        <HighlightButton editor={editor} />
-        <CodeBlockButton editor={editor} />
-      </div>
-      <div>
-        <LeftAdjustButton editor={editor} />
-        <CenterAdjustButton editor={editor} />
-        <RightAdjustButton editor={editor} />
-        <JustifyAdjustButton editor={editor} />
-      </div>
-
+    <div className='editorToolbar'>
       <ImportFileButton editor={editor} />
       <PrintPDF />
+      <UndoButton editor={editor} />
+      <RedoButton editor={editor} />
+      <BoldButton editor={editor} />
+      <ItalicButton editor={editor} />
+      <UnderlineButton editor={editor} />
+      <ChangeColorButton editor={editor} />
+      <HighlightButton editor={editor} />
+      <CodeBlockButton editor={editor} />
+      <LeftAdjustButton editor={editor} />
+      <CenterAdjustButton editor={editor} />
+      <RightAdjustButton editor={editor} />
+      <JustifyAdjustButton editor={editor} />
     </div>
   );
 }
