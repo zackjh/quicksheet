@@ -16,9 +16,9 @@ import {
   faRedo,
   faCode,
 } from '@fortawesome/free-solid-svg-icons';
-import PrintPDF from './printPDF';
+import PrintPDF from './PrintPDFButton';
 
-export default function MyEditorToolbar() {
+export default function EditorToolbar() {
   const { editor } = useCurrentEditor();
   const style = {
     border: '2px solid black',
@@ -58,7 +58,7 @@ export default function MyEditorToolbar() {
     </div>
   );
 }
-// Undo and Redo buttons
+
 function UndoButton({ editor }: { editor: any }) {
   return (
     <button
@@ -80,8 +80,6 @@ function RedoButton({ editor }: { editor: any }) {
     </button>
   );
 }
-
-// Text style buttons
 
 function ItalicButton({ editor }: { editor: any }) {
   return (
@@ -152,6 +150,7 @@ function HighlightButton({ editor }: { editor: any }) {
     </button>
   );
 }
+
 function CodeBlockButton({ editor }: { editor: any }) {
   return (
     <button
@@ -162,8 +161,6 @@ function CodeBlockButton({ editor }: { editor: any }) {
     </button>
   );
 }
-
-//Align buttons
 
 function LeftAdjustButton({ editor }: { editor: any }) {
   return (

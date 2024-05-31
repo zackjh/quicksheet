@@ -1,9 +1,8 @@
-import React from 'react';
 import { useCurrentEditor } from '@tiptap/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileExport } from '@fortawesome/free-solid-svg-icons';
 
-const EditorJSONPreview: React.FC = () => {
+export default function JSONPreview() {
   const jsonStyle = {
     border: '2px solid black',
     padding: '2px',
@@ -47,6 +46,4 @@ const EditorJSONPreview: React.FC = () => {
       </pre>
     </>
   );
-};
-
-export default EditorJSONPreview;
+}

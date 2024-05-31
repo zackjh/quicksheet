@@ -1,6 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import React from 'react';
-import Tiptap from './renderer/components/editor/editor';
+import Tiptap from './components/Editor';
 
 const element = document.getElementById('react-app-root');
 if (element) {
