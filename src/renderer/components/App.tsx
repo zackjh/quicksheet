@@ -1,9 +1,19 @@
 import { createRoot } from 'react-dom/client';
+import Editor from './Editor/Editor';
+import '@fontsource/open-sans';
 
 const element = document.getElementById('react-app-root');
 if (element) {
   const root = createRoot(element);
-  root.render(<h2>Hello from React!</h2>);
+  root.render(
+    <div
+      style={{
+        fontFamily: 'Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif',
+      }}
+    >
+      <Editor />
+    </div>
+  );
 } else {
   console.error("There is no element in index.html with id='react-app-root'");
 }

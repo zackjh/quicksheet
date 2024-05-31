@@ -1,0 +1,19 @@
+.editor {
+}
+
+.ProseMirror {
+  aspect-ratio: 1/1.414;
+  background-color: #ffffff;
+  border: 1px solid #c7c7c7;
+  font-family: Arial;
+  font-size: 14px;
+  margin: auto;
+  outline: none;
+  padding: 7% 9%;
+  width: 60%;
+}
+
+.ProseMirror > p {
+  margin: 2px 0px;
+  padding: 0px;
+}
