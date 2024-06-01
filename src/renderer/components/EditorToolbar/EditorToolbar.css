@@ -8,16 +8,6 @@
   padding: 0px 10px;
 }
 
-.buttonGroup {
-  background-color: green;
-  height: 30px;
-  margin: 0px 10px;
-}
-
-.leftDivider {
-  border-left: 1px solid purple;
-}
-
 .editorToolbar > button {
   background-color: transparent;
   border: none;
