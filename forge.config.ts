@@ -52,6 +52,18 @@ const config: ForgeConfig = {
       [FuseV1Options.OnlyLoadAppFromAsar]: true,
     }),
   ],
+  publishers: [
+    {
+      name: '@electron-forge/publisher-github',
+      config: {
+        repository: {
+          owner: 'zackjh',
+          name: 'quicksheet',
+        },
+        prerelease: true,
+      },
+    },
+  ],
 };
 
 export default config;
