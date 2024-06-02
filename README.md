@@ -14,7 +14,8 @@
 - Install version according to your operating system from the releases
   - quicksheet-1.0.0.Setup.exe (windows)
   - quicksheet_1.0.0_amd64.deb (linux debian based os)
-  - 
+  - quicksheet-darwin-x64-1.0.0.zip (intel based mac os)
+  - quicksheet-darwin-arm64-1.0.0.zip (arm based mac os)
 
 # Features supported and testable
 1. Rich Text Editing
