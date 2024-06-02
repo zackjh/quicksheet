@@ -79,7 +79,7 @@ export default function PrintPDFButton() {
 
   return (
     <button id='PrintPDF' onClick={printPDF}>
-      Print PDF <FontAwesomeIcon icon={faPrint} />
+      <FontAwesomeIcon icon={faPrint} /> Print PDF
     </button>
   );
 }
