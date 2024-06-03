@@ -1,6 +1,5 @@
 import EditorToolbar from '../EditorToolbar/EditorToolbar';
-// TODO: Remove import if not needed
-// import JSONPreview from '../JSONPreview';
+
 import WordCounter from '../WordCounter/WordCounter';
 
 import { EditorProvider } from '@tiptap/react';
@@ -10,13 +9,14 @@ import { Underline } from '@tiptap/extension-underline';
 import { TextStyle } from '@tiptap/extension-text-style';
 import { CharacterCount } from '@tiptap/extension-character-count';
 import { CodeBlock } from '@tiptap/extension-code-block';
-// TODO: Remove import if not needed
-// import Focus from '@tiptap/extension-focus';
+
 import { Highlight } from '@tiptap/extension-highlight';
 import { TextAlign } from '@tiptap/extension-text-align';
 import { Typography } from '@tiptap/extension-typography';
 
 import './Editor.css';
+import { ListItem } from '@tiptap/extension-list-item';
+import { OrderedList } from '@tiptap/extension-ordered-list';
 
 // Define extension array
 const extensions = [
@@ -31,6 +31,8 @@ const extensions = [
   CharacterCount,
   Typography,
   CodeBlock,
+  ListItem,
+  OrderedList,
   // Focus.configure({
   //   className: 'has-focus', // TODO: Remove Focus extension if not needed
   //   mode: 'deepest',

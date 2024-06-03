@@ -19,6 +19,10 @@ import {
   faRedo,
   faCode,
   faFileExport,
+  faList,
+  faListOl,
+  faIndent,
+  faOutdent,
 } from '@fortawesome/free-solid-svg-icons';
 
 import './EditorToolbar.css';
@@ -47,6 +51,10 @@ export default function EditorToolbar() {
       <CenterAdjustButton editor={editor} />
       <RightAdjustButton editor={editor} />
       <JustifyAdjustButton editor={editor} />
+      <BulletListButton editor={editor}/>
+      <OrderedListButton editor={editor}/>
+      <ListShiftRightButton editor={editor}/>
+      <ListShiftLeftButton editor={editor}/>
     </div>
   );
 }
@@ -263,4 +271,48 @@ function ExportJSONButton({ editor }: { editor: Editor }) {
       <FontAwesomeIcon icon={faFileExport} /> Export File
     </button>
   );
+}
+
+function BulletListButton ({  editor }: { editor: Editor}){
+  return (
+    <button
+    onClick={() => editor.chain().focus().toggleBulletList().run()}
+    className={editor.isActive('bulletList') ? 'is-active' : ''}
+  >
+    <FontAwesomeIcon icon={faList}/>
+  </button>
+  )
+}
+
+function OrderedListButton ({editor}: {editor: Editor}){
+  return (
+    <button
+        onClick={() => editor.chain().focus().toggleOrderedList().run()}
+        className={editor.isActive('orderedList') ? 'is-active' : ''}
+      >
+        <FontAwesomeIcon icon={faListOl}/>
+      </button>
+  )
+}
+
+function ListShiftRightButton ({editor}: {editor: Editor}){
+  return (
+    <button
+        onClick={() => editor.chain().focus().sinkListItem('listItem').run()}
+        disabled={!editor.can().sinkListItem('listItem')}
+      >
+        <FontAwesomeIcon icon={faIndent} />
+      </button>
+  )
+}
+
+function ListShiftLeftButton ({editor}: {editor: Editor}){
+  return (
+    <button
+        onClick={() => editor.chain().focus().liftListItem('listItem').run()}
+        disabled={!editor.can().liftListItem('listItem')}
+      >
+        <FontAwesomeIcon icon={faOutdent} />
+      </button>
+  )
 }
