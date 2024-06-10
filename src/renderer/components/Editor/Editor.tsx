@@ -1,6 +1,5 @@
 import EditorToolbar from '../EditorToolbar/EditorToolbar';
-// TODO: Remove import if not needed
-// import JSONPreview from '../JSONPreview';
+
 import WordCounter from '../WordCounter/WordCounter';
 
 import { EditorProvider } from '@tiptap/react';
@@ -9,7 +8,9 @@ import { Color } from '@tiptap/extension-color';
 import { Underline } from '@tiptap/extension-underline';
 import { TextStyle } from '@tiptap/extension-text-style';
 import { CharacterCount } from '@tiptap/extension-character-count';
+
 import CodeBlockLowlight, { CodeBlockLowlightOptions } from '@tiptap/extension-code-block-lowlight';
+
 
 import { Highlight } from '@tiptap/extension-highlight';
 import { TextAlign } from '@tiptap/extension-text-align';
@@ -26,11 +27,12 @@ import cpp from 'highlight.js/lib/languages/cpp'
 import {common, createLowlight} from 'lowlight'
 
 import './Editor.css';
+import { ListItem } from '@tiptap/extension-list-item';
+import { OrderedList } from '@tiptap/extension-ordered-list';
 
 
 
 
-// Define extension array
 
 
 const editorFooter = (
