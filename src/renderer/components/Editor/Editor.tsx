@@ -9,7 +9,7 @@ import { Underline } from '@tiptap/extension-underline';
 import { TextStyle } from '@tiptap/extension-text-style';
 import { CharacterCount } from '@tiptap/extension-character-count';
 
-import CodeBlockLowlight, { CodeBlockLowlightOptions } from '@tiptap/extension-code-block-lowlight';
+import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
 
 
 import { Highlight } from '@tiptap/extension-highlight';
@@ -29,8 +29,10 @@ import {common, createLowlight} from 'lowlight'
 import './Editor.css';
 import { ListItem } from '@tiptap/extension-list-item';
 import { OrderedList } from '@tiptap/extension-ordered-list';
-
-
+import { Table } from '@tiptap/extension-table'
+import { TableCell } from '@tiptap/extension-table-cell'
+import { TableHeader } from '@tiptap/extension-table-header'
+import { TableRow } from '@tiptap/extension-table-row'
 
 
 
@@ -62,12 +64,21 @@ export default function Editor() {
     Underline,
     Color,
     TextStyle,
+    ListItem,
+    OrderedList,
     CharacterCount,
     Typography,
     CodeBlockLowlight.configure({
       lowlight,
       defaultLanguage: 'javascript',
     }),
+    Table.configure({
+      resizable: true,
+    }),
+    TableRow,
+    TableHeader,
+    TableCell,
+
 
   ];
 
