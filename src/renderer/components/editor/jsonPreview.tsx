@@ -8,7 +8,7 @@ const EditorJSONPreview: React.FC = () => {
     border: '2px solid black',
     padding: '2px',
     width: '100%',
-    backgroundColor: '#f4f4f4'
+    backgroundColor: '#f4f4f4',
   };
 
   const { editor } = useCurrentEditor();
@@ -17,7 +17,7 @@ const EditorJSONPreview: React.FC = () => {
     if (!editor) {
       return;
     }
-    
+
     const json = editor.getJSON();
     const jsonString = JSON.stringify(json, null, 2);
 

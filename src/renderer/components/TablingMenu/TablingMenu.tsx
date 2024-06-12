@@ -5,8 +5,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import "./TablingMenu.css"
-
+import './TablingMenu.css';
 
 export default function TablingMenu() {
   const { editor } = useCurrentEditor();
@@ -19,25 +18,24 @@ export default function TablingMenu() {
     setAnchorEl(null);
   };
 
-
   if (!editor) {
     return null;
   }
 
-  return(
+  return (
     <>
       <Button
-        id="table-button"
+        id='table-button'
         aria-controls={open ? 'demo-positioned-menu' : undefined}
-        aria-haspopup="true"
+        aria-haspopup='true'
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
         <FontAwesomeIcon icon={faTable} />
       </Button>
       <Menu
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
+        id='demo-positioned-menu'
+        aria-labelledby='demo-positioned-button'
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -50,26 +48,57 @@ export default function TablingMenu() {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: false }).run()}>Create Table</MenuItem>
-        <MenuItem onClick={() => editor.chain().focus().deleteTable().run()} disabled={!editor.can().deleteTable()}>Delete Table</MenuItem>
-        <MenuItem onClick={() => editor.chain().focus().addRowAfter().run()}>Add Row</MenuItem>
-        <MenuItem onClick={() => editor.chain().focus().addColumnAfter().run()}>Add Column</MenuItem>
-        <MenuItem onClick={() => editor.chain().focus().deleteRow().run()}>Delete Row</MenuItem>
-        <MenuItem onClick={() => editor.chain().focus().deleteColumn().run()}>Delete Column</MenuItem>
-        <MenuItem onClick={() => editor.chain().focus().mergeOrSplit().run()} disabled={!editor.can().mergeOrSplit()}>{editor.can().splitCell() ? 'Split' : 'Merge'}</MenuItem>
-
+        <MenuItem
+          onClick={() =>
+            editor
+              .chain()
+              .focus()
+              .insertTable({ rows: 3, cols: 3, withHeaderRow: false })
+              .run()
+          }
+        >
+          Create Table
+        </MenuItem>
+        <MenuItem
+          onClick={() => editor.chain().focus().deleteTable().run()}
+          disabled={!editor.can().deleteTable()}
+        >
+          Delete Table
+        </MenuItem>
+        <MenuItem onClick={() => editor.chain().focus().addRowAfter().run()}>
+          Add Row
+        </MenuItem>
+        <MenuItem onClick={() => editor.chain().focus().addColumnAfter().run()}>
+          Add Column
+        </MenuItem>
+        <MenuItem onClick={() => editor.chain().focus().deleteRow().run()}>
+          Delete Row
+        </MenuItem>
+        <MenuItem onClick={() => editor.chain().focus().deleteColumn().run()}>
+          Delete Column
+        </MenuItem>
+        <MenuItem
+          onClick={() => editor.chain().focus().mergeOrSplit().run()}
+          disabled={!editor.can().mergeOrSplit()}
+        >
+          {editor.can().splitCell() ? 'Split' : 'Merge'}
+        </MenuItem>
       </Menu>
     </>
-
   );
-
 }
-
-
 
 function InsertTableButton({ editor }: { editor: Editor }) {
   return (
-    <div onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: false }).run()}>
+    <div
+      onClick={() =>
+        editor
+          .chain()
+          .focus()
+          .insertTable({ rows: 3, cols: 3, withHeaderRow: false })
+          .run()
+      }
+    >
       Insert Table
     </div>
   );
@@ -98,18 +127,21 @@ function DeleteColumnButton({ editor }: { editor: Editor }) {
   );
 }
 
-function DeleteRowButton ({editor}: {editor: Editor}){
+function DeleteRowButton({ editor }: { editor: Editor }) {
   return (
     <button onClick={() => editor.chain().focus().deleteRow().run()}>
       Delete Row
     </button>
-  )
+  );
 }
 
 function ToggleMergeCellButton({ editor }: { editor: Editor }) {
   return (
-    <button onClick={() => editor.chain().focus().mergeOrSplit().run()} disabled={!editor.can().mergeOrSplit()}>
-        mergeOrSplit
+    <button
+      onClick={() => editor.chain().focus().mergeOrSplit().run()}
+      disabled={!editor.can().mergeOrSplit()}
+    >
+      mergeOrSplit
     </button>
   );
 }

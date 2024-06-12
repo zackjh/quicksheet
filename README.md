@@ -45,8 +45,9 @@ Alternatively, if you do not wish to bypass these security measures, you can run
 
 ### Setting Up Your Development Environment
 
-1. Install VS Code extensions for [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig), [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint), and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+1. Install VS Code extensions for [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig), [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint), [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode), and [Tailwind CSS](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 
+   - Use the [recommended VS Code settings](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss#recommended-vs-code-settings) for the Tailwind CSS extension
    - It is recommended to turn on _format on save_ in VS Code
 
 2. Run `npm install` to install dependencies

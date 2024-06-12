@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import Editor from './Editor/Editor';
 import '@fontsource/open-sans';
+import './App.css';
 
 const element = document.getElementById('react-app-root');
 if (element) {
