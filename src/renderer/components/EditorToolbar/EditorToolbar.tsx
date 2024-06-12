@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 import PrintPDF from '../PrintPDFButton';
-
+import TablingMenu from '../TablingMenu/TablingMenu';
 import { Editor, useCurrentEditor } from '@tiptap/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -55,6 +55,7 @@ export default function EditorToolbar() {
       <OrderedListButton editor={editor}/>
       <ListShiftRightButton editor={editor}/>
       <ListShiftLeftButton editor={editor}/>
+      <TablingMenu/>
     </div>
   );
 }
@@ -316,3 +317,5 @@ function ListShiftLeftButton ({editor}: {editor: Editor}){
       </button>
   )
 }
+
+
