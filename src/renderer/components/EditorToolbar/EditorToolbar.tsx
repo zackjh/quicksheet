@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 import PrintPDF from '../PrintPDFButton';
-
+import TablingMenu from '../TablingMenu/TablingMenu';
 import { Editor, useCurrentEditor } from '@tiptap/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -55,12 +55,7 @@ export default function EditorToolbar() {
       <OrderedListButton editor={editor}/>
       <ListShiftRightButton editor={editor}/>
       <ListShiftLeftButton editor={editor}/>
-      <InsertTableButton editor={editor} />
-      <InsertRowButton editor={editor} />
-      <InsertColumnButton editor={editor} />
-      <DeleteRowButton editor={editor} />
-      <DeleteColumnButton editor={editor} />
-      <ToggleMergeCellButton editor={editor} />
+      <TablingMenu/>
     </div>
   );
 }
@@ -323,49 +318,4 @@ function ListShiftLeftButton ({editor}: {editor: Editor}){
   )
 }
 
-function InsertTableButton({ editor }: { editor: Editor }) {
-  return (
-    <button onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: false }).run()}>
-      Insert Table
-    </button>
-  );
-}
 
-function InsertRowButton({ editor }: { editor: Editor }) {
-  return (
-    <button onClick={() => editor.chain().focus().addRowAfter().run()}>
-      Insert Row
-    </button>
-  );
-}
-function InsertColumnButton({ editor }: { editor: Editor }) {
-  return (
-    <button onClick={() => editor.chain().focus().addColumnAfter().run()}>
-      Insert Column
-    </button>
-  );
-}
-
-function DeleteColumnButton({ editor }: { editor: Editor }) {
-  return (
-    <button onClick={() => editor.chain().focus().deleteColumn().run()}>
-      Delete Column
-    </button>
-  );
-}
-
-function DeleteRowButton ({editor}: {editor: Editor}){
-  return (
-    <button onClick={() => editor.chain().focus().deleteRow().run()}>
-      Delete Row
-    </button>
-  )
-}
-
-function ToggleMergeCellButton({ editor }: { editor: Editor }) {
-  return (
-    <button onClick={() => editor.chain().focus().mergeOrSplit().run()} disabled={!editor.can().mergeOrSplit()}>
-        mergeOrSplit
-    </button>
-  );
-}
