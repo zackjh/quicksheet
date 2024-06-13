@@ -1,5 +1,4 @@
 import EditorToolbar from '../EditorToolbar/EditorToolbar';
-
 import WordCounter from '../WordCounter/WordCounter';
 
 import { EditorProvider } from '@tiptap/react';
