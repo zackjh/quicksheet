@@ -28,7 +28,7 @@ export const toolbarStyles = {
 
 export default function Toolbar() {
   return (
-    <div className='m-5 flex h-9 items-center rounded-full bg-slate-200 px-3'>
+    <div className='mx-5 mb-5 flex h-9 items-center rounded-full bg-slate-200 px-3'>
       <ImportButton />
       <ExportButton />
       <PrintButton />

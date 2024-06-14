@@ -1,6 +1,8 @@
-import Toolbar from '../Toolbar/Toolbar';
-import WordCounter from '../WordCounter';
+// Our own components
+import Toolbar from '@/src/renderer/components/Toolbar/Toolbar';
+import WordCounter from '@/src/renderer/components/WordCounter';
 
+// Tiptap components
 import { EditorProvider } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import { Color } from '@tiptap/extension-color';
@@ -16,6 +18,8 @@ import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
 import { TableRow } from '@tiptap/extension-table-row';
 
+// Modules for code block syntax highlighting
+import { common, createLowlight } from 'lowlight';
 import css from 'highlight.js/lib/languages/css';
 import js from 'highlight.js/lib/languages/javascript';
 import ts from 'highlight.js/lib/languages/typescript';
@@ -24,9 +28,9 @@ import python from 'highlight.js/lib/languages/python';
 import c from 'highlight.js/lib/languages/c';
 import cpp from 'highlight.js/lib/languages/cpp';
 
-import { common, createLowlight } from 'lowlight';
-
-// Import stylesheets
+// TODO: Inside Editor.css: Remove styles for editor and replace with inline tailwind classes
+// The above message was written because ESLint won't lint CSS files
+// Stylesheets
 import '@/src/renderer/components/Editor/Editor.css';
 
 // TODO: Decide what to do with the editorFooter
@@ -38,8 +42,8 @@ const editorFooter = (
 );
 
 export default function Editor() {
+  // Set up code block syntax highlighting
   const lowlight = createLowlight(common);
-
   lowlight.register('css', css);
   lowlight.register('javascript', js);
   lowlight.register('typescript', ts);
@@ -48,6 +52,7 @@ export default function Editor() {
   lowlight.register('c', c);
   lowlight.register('cpp', cpp);
 
+  // Tiptap extensions
   const extensions = [
     StarterKit.configure({ codeBlock: false }),
     Highlight,

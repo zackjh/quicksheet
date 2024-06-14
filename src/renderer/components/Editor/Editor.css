@@ -1,3 +1,5 @@
+/* TODO: Remove styles for editor and replace with inline tailwind classes */
+/* Styles for editor */
 .ProseMirror {
   aspect-ratio: 1/1.414;
   background-color: #ffffff;
