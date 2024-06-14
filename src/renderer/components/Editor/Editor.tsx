@@ -1,5 +1,5 @@
-import Toolbar from '../Toolbar';
-import WordCounter from '../WordCounter/WordCounter';
+import Toolbar from '../Toolbar/Toolbar';
+import WordCounter from '../WordCounter';
 
 import { EditorProvider } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
@@ -26,7 +26,8 @@ import cpp from 'highlight.js/lib/languages/cpp';
 
 import { common, createLowlight } from 'lowlight';
 
-import './Editor.css';
+// Import stylesheets
+import '@/src/renderer/components/Editor/Editor.css';
 
 // TODO: Decide what to do with the editorFooter
 const editorFooter = (
@@ -70,7 +71,7 @@ export default function Editor() {
     TableCell,
   ];
 
-  // Set default classes for editor styling because Tailwind removes them
+  // Set base classes for editor styling because tailwind removes them by default
   const editorProps = {
     attributes: {
       class:

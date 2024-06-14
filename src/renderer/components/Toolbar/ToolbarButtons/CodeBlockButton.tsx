@@ -1,7 +1,7 @@
 import { useCurrentEditor } from '@tiptap/react';
 import { Button } from '@/src/renderer/ui/button';
 import { Code } from 'lucide-react';
-import { toolbarStyles } from '../Toolbar';
+import { toolbarStyles } from '@/src/renderer/components/Toolbar/Toolbar';
 import { clsx } from 'clsx';
 
 export default function CodeBlockButton() {

@@ -1,7 +1,7 @@
 import { useCurrentEditor } from '@tiptap/react';
 import { Button } from '@/src/renderer/ui/button';
 import { IndentDecrease } from 'lucide-react';
-import { toolbarStyles } from '../Toolbar';
+import { toolbarStyles } from '@/src/renderer/components/Toolbar/Toolbar';
 
 export default function IndentDecreaseButton() {
   const { editor } = useCurrentEditor();

@@ -1,9 +1,10 @@
 import { createRoot } from 'react-dom/client';
-import Editor from './Editor/Editor';
+import Editor from '@/src/renderer/components/Editor/Editor';
 import '@fontsource/open-sans';
-import './App.css';
+import '@/src/renderer/App.css';
 
 const element = document.getElementById('react-app-root');
+
 if (element) {
   const root = createRoot(element);
   root.render(

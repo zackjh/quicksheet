@@ -2,7 +2,7 @@ import { useCurrentEditor } from '@tiptap/react';
 import html2pdf from 'html2pdf.js';
 import { Button } from '@/src/renderer/ui/button';
 import { Printer } from 'lucide-react';
-import { toolbarStyles } from '../Toolbar';
+import { toolbarStyles } from '@/src/renderer/components/Toolbar/Toolbar';
 
 export default function PrintButton() {
   const { editor } = useCurrentEditor();

@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from '@/src/renderer/ui/dropdown-menu';
 import { Table } from 'lucide-react';
-import { toolbarStyles } from '../Toolbar';
+import { toolbarStyles } from '@/src/renderer/components/Toolbar/Toolbar';
 
 export default function TableButton() {
   const { editor } = useCurrentEditor();

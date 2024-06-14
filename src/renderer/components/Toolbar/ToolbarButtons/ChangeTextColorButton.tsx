@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useCurrentEditor } from '@tiptap/react';
 import { Button } from '@/src/renderer/ui/button';
 import { Palette } from 'lucide-react';
-import { toolbarStyles } from '../Toolbar';
+import { toolbarStyles } from '@/src/renderer/components/Toolbar/Toolbar';
 
 export default function ChangeTextColorButton() {
   const { editor } = useCurrentEditor();
