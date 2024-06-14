@@ -1,6 +1,23 @@
-.editor {
+/* TODO: Remove styles for editor and replace with inline tailwind classes */
+/* Styles for editor */
+.ProseMirror {
+  aspect-ratio: 1/1.414;
+  background-color: #ffffff;
+  border: 1px solid #c7c7c7;
+  font-family: Arial;
+  font-size: 14px;
+  margin: auto;
+  outline: none;
+  padding: 7% 9%;
+  width: 60%;
 }
 
+.ProseMirror > p {
+  margin: 2px 0px;
+  padding: 0px;
+}
+
+/* Styles for tables */
 table {
   border-collapse: collapse;
   table-layout: fixed;
@@ -31,8 +48,11 @@ table {
   .selectedCell:after {
     z-index: 2;
     position: absolute;
-    content: "";
-    left: 0; right: 0; top: 0; bottom: 0;
+    content: '';
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     background: rgba(200, 200, 255, 0.4);
     pointer-events: none;
   }
@@ -48,34 +68,16 @@ table {
   }
 }
 
-
 .tableWrapper {
-overflow-x: auto;
+  overflow-x: auto;
 }
 
-
-.ProseMirror {
-  aspect-ratio: 1/1.414;
-  background-color: #ffffff;
-  border: 1px solid #c7c7c7;
-  font-family: Arial;
-  font-size: 14px;
-  margin: auto;
-  outline: none;
-  padding: 7% 9%;
-  width: 60%;
-}
-
-.ProseMirror > p {
-  margin: 2px 0px;
-  padding: 0px;
-}
-
+/* Styles for code blocks and syntax highlighting */
 pre {
   background: #0d0d0d;
   border-radius: 0.5rem;
   color: #fff;
-  font-family: "JetBrainsMono", monospace;
+  font-family: 'JetBrainsMono', monospace;
   padding: 0.75rem 1rem;
 
   code {

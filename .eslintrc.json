@@ -24,5 +24,10 @@
     "react-app",
     "react-app/jest"
   ],
-  "parser": "@typescript-eslint/parser"
+  "parser": "@typescript-eslint/parser",
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  }
 }
