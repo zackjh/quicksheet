@@ -47,8 +47,19 @@ Alternatively, if you do not wish to bypass these security measures, you can run
 
 1. Install VS Code extensions for [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig), [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint), [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode), and [Tailwind CSS](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 
-   - Use the [recommended VS Code settings](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss#recommended-vs-code-settings) for the Tailwind CSS extension
-   - It is recommended to turn on _format on save_ in VS Code
+   - Add the following into your `settings.json` within VS Code (if they are not already there)
+
+     ```json
+     "files.associations": {
+       "*.css": "tailwindcss" // Always open .css files in Tailwind CSS mode - see Tailwind VS Code extension page for more details
+     },
+     "editor.quickSuggestions": {
+       "strings": "on" // Trigger completions when editing "string" content - see Tailwind VS Code extension page for more details
+     },
+     "editor.formatOnSave": true, // Format on save (highly recommended)
+     "tailwindCSS.experimental.classRegex": ["class:\\s*?[\"'`]([^\"'`]*).*?,"], // Enables Tailwind IntelliSense inside TipTap objects
+     "tailwindCSS.classAttributes": [".*Styles.*"] // Enables Tailwind IntelliSense inside variables containing 'Styles' in their name
+     ```
 
 2. Run `npm install` to install dependencies
 3. Run `npm start` to start the development server

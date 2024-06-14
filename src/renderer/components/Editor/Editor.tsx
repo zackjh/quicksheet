@@ -1,4 +1,4 @@
-import EditorToolbar from '../EditorToolbar/EditorToolbar';
+import Toolbar from '../Toolbar';
 import WordCounter from '../WordCounter/WordCounter';
 
 import { EditorProvider } from '@tiptap/react';
@@ -7,12 +7,14 @@ import { Color } from '@tiptap/extension-color';
 import { Underline } from '@tiptap/extension-underline';
 import { TextStyle } from '@tiptap/extension-text-style';
 import { CharacterCount } from '@tiptap/extension-character-count';
-
 import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight';
-
 import { Highlight } from '@tiptap/extension-highlight';
 import { TextAlign } from '@tiptap/extension-text-align';
 import { Typography } from '@tiptap/extension-typography';
+import { Table } from '@tiptap/extension-table';
+import { TableCell } from '@tiptap/extension-table-cell';
+import { TableHeader } from '@tiptap/extension-table-header';
+import { TableRow } from '@tiptap/extension-table-row';
 
 import css from 'highlight.js/lib/languages/css';
 import js from 'highlight.js/lib/languages/javascript';
@@ -25,13 +27,8 @@ import cpp from 'highlight.js/lib/languages/cpp';
 import { common, createLowlight } from 'lowlight';
 
 import './Editor.css';
-import { ListItem } from '@tiptap/extension-list-item';
-import { OrderedList } from '@tiptap/extension-ordered-list';
-import { Table } from '@tiptap/extension-table';
-import { TableCell } from '@tiptap/extension-table-cell';
-import { TableHeader } from '@tiptap/extension-table-header';
-import { TableRow } from '@tiptap/extension-table-row';
 
+// TODO: Decide what to do with the editorFooter
 const editorFooter = (
   <>
     <WordCounter />
@@ -51,7 +48,7 @@ export default function Editor() {
   lowlight.register('cpp', cpp);
 
   const extensions = [
-    StarterKit,
+    StarterKit.configure({ codeBlock: false }),
     Highlight,
     TextAlign.configure({
       types: ['heading', 'paragraph'],
@@ -59,8 +56,6 @@ export default function Editor() {
     Underline,
     Color,
     TextStyle,
-    ListItem,
-    OrderedList,
     CharacterCount,
     Typography,
     CodeBlockLowlight.configure({
@@ -75,13 +70,20 @@ export default function Editor() {
     TableCell,
   ];
 
+  // Set default classes for editor styling because Tailwind removes them
+  const editorProps = {
+    attributes: {
+      class:
+        'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
+    },
+  };
+
   return (
-    <div className='editor'>
-      <EditorProvider
-        extensions={extensions}
-        slotBefore={<EditorToolbar />}
-        slotAfter={editorFooter}
-      ></EditorProvider>
-    </div>
+    <EditorProvider
+      extensions={extensions}
+      slotBefore={<Toolbar />}
+      slotAfter={editorFooter}
+      editorProps={editorProps}
+    ></EditorProvider>
   );
 }
