@@ -93,14 +93,41 @@ Alternatively, if you do not wish to bypass these security measures, you can run
 
 ### Windows
 
-TODO: Check whether instructions are accurate and update `???` placeholders
-
-1. Run `npm run make --platform="win32" --arch="x64"` to package and create the distributables
-2. Navigate to `???` and attach `quicksheet-x.x.x.Setup.exe` to the GitHub release
+0. Run `npm install` to ensure dependencies are installed
+1. While on a windows system run `npm run make` to package and create the distributables
+```perl
+my-app/
+├── out/
+│   ├── make/
+│   │   ├── squirrel.windows/
+│   │   │   ├── MyApp Setup 1.0.0.exe
+│   │   │   ├── RELEASES
+│   │   │   ├── MyApp-1.0.0-full.nupkg
+│   │   │   └── ... (other Squirrel-related files)
+│   │   └── zip/
+│   │       └── my-app-1.0.0-win32-x64.zip
+```
+3. Navigate to `out/make/squirrel.windows` and attach `quicksheet-x.x.x.Setup.exe` to the GitHub release or run `npm run publish`
 
 ### Linux
 
-TODO: Check whether instructions are accurate and update `???` placeholders
-
-1. Run `npm run make --platform="linux" --arch="x64"` to package and create the distributables
-2. Navigate to `???` and attach `???` to the GitHub release
+0. Run `npm install` to ensure dependencies are installed
+1. Run `npm run make` to package and create the distributables
+```perl
+my-app/
+├── src/
+│   ├── index.js
+│   └── ... (other source files)
+├── package.json
+├── out/
+│   ├── make/
+│   │   ├── deb/
+│   │   │   └── my-app_1.0.0_amd64.deb
+│   │   ├── rpm/
+│   │   │   └── my-app-1.0.0.x86_64.rpm
+│   │   ├── zip/
+│   │   │   └── my-app-1.0.0-linux-x64.zip
+│   │   └── ... (other possible formats)
+```
+3. Navigate to `out/make/deb` and attach `quicksheet-x.x.x.amd64.deb` to the GitHub release
+4. Navigate to `out/make/rpm` and attach `quicksheet-x.x.x.x86_64.rpm` to the GitHub release
