@@ -93,8 +93,8 @@ Alternatively, if you do not wish to bypass these security measures, you can run
 
 ### Windows
 
-1. Run `npm install` to ensure dependencies are installed
-2. While on a Windows system, run `npm run make` to package and create the distributables
+3. Run `npm install` to ensure dependencies are installed
+4. While on a Windows system, run `npm run make` to package and create the distributables
 
 ```perl
 my-app/
