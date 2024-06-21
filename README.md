@@ -58,7 +58,7 @@ Alternatively, if you do not wish to bypass these security measures, you can run
      },
      "editor.formatOnSave": true, // Format on save (highly recommended)
      "tailwindCSS.experimental.classRegex": ["class:\\s*?[\"'`]([^\"'`]*).*?,"], // Enables Tailwind IntelliSense inside TipTap objects
-     "tailwindCSS.classAttributes": [".*Styles.*"] // Enables Tailwind IntelliSense inside variables containing 'Styles' in their name
+     "tailwindCSS.classAttributes": ["class", "className", ".*Styles.*"] // Enables Tailwind IntelliSense inside variables containing 'Styles' in their name, as well as when defining classes
      ```
 
 2. Run `npm install` to install dependencies
