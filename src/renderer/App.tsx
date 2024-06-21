@@ -11,7 +11,11 @@ const element = document.getElementById('react-app-root');
 
 if (element) {
   const root = createRoot(element);
-  root.render(<Editor />);
+  root.render(
+    <div className='bg-neutral-50'>
+      <Editor />
+    </div>
+  );
 } else {
   console.error(
     "There is no element in index.html with id='react-app-root'. An element with this id is required as it serves as an entry point for the React application."

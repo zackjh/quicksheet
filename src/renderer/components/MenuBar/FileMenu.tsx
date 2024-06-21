@@ -10,6 +10,7 @@ import {
   MenubarSeparator,
   MenubarTrigger,
 } from '@/src/renderer/ui/menubar';
+import { menubarStyles } from '@/src/renderer/components/MenuBar/MenuBar';
 
 export default function FileMenu() {
   const { editor } = useCurrentEditor();
@@ -23,7 +24,9 @@ export default function FileMenu() {
 
   return (
     <MenubarMenu>
-      <MenubarTrigger>File</MenubarTrigger>
+      <MenubarTrigger className={menubarStyles.menubarTrigger}>
+        File
+      </MenubarTrigger>
       <MenubarContent>
         <MenubarItem>New</MenubarItem>
 
