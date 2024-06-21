@@ -64,6 +64,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-menubar": "^1.1.1",
     "@radix-ui/react-slot": "^1.0.2",
     "@tiptap-pro/extension-mathematics": "^2.8.9",
     "@tiptap/extension-bullet-list": "^2.4.0",

@@ -1,5 +1,3 @@
-import ImportButton from '@/src/renderer/components/Toolbar/ToolbarButtons/ImportButton';
-import ExportButton from '@/src/renderer/components/Toolbar/ToolbarButtons/ExportButton';
 import UndoButton from '@/src/renderer/components/Toolbar/ToolbarButtons/UndoButton';
 import RedoButton from '@/src/renderer/components/Toolbar/ToolbarButtons/RedoButton';
 import BoldButton from '@/src/renderer/components/Toolbar/ToolbarButtons/BoldButton';
@@ -17,7 +15,6 @@ import OrderedListButton from '@/src/renderer/components/Toolbar/ToolbarButtons/
 import IndentDecreaseButton from '@/src/renderer/components/Toolbar/ToolbarButtons/IndentDecreaseButton';
 import IndentIncreaseButton from '@/src/renderer/components/Toolbar/ToolbarButtons/IndentIncreaseButton';
 import TableButton from '@/src/renderer/components/Toolbar/ToolbarButtons/TableButton';
-import PrintButton from '@/src/renderer/components/Toolbar/ToolbarButtons/PrintButton';
 
 export const toolbarStyles = {
   iconButton:
@@ -29,9 +26,6 @@ export const toolbarStyles = {
 export default function Toolbar() {
   return (
     <div className='mx-5 mb-5 flex h-9 items-center rounded-full bg-slate-200 px-3'>
-      <ImportButton />
-      <ExportButton />
-      <PrintButton />
       <UndoButton />
       <RedoButton />
       <BoldButton />
