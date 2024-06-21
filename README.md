@@ -109,7 +109,7 @@ my-app/
 │   │       └── my-app-1.0.0-win32-x64.zip
 ```
 
-3. Navigate to `out/make/squirrel.windows` and attach `quicksheet-x.x.x.Setup.exe` to the GitHub release or run `npm run publish`
+5. Navigate to `out/make/squirrel.windows` and attach `quicksheet-x.x.x.Setup.exe` to the GitHub release or run `npm run publish`
 
 ### Linux
 
