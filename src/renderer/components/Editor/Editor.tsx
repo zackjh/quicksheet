@@ -5,8 +5,6 @@ import WordCounter from '@/src/renderer/components/WordCounter';
 
 // Tiptap components
 import { EditorProvider, ReactNodeViewRenderer } from '@tiptap/react';
-import { Code } from '@tiptap/extension-code';
-import { CodeBlock } from '@tiptap/extension-code-block';
 import { StarterKit } from '@tiptap/starter-kit';
 import { Color } from '@tiptap/extension-color';
 import { Underline } from '@tiptap/extension-underline';
@@ -21,7 +19,6 @@ import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
 import { TableRow } from '@tiptap/extension-table-row';
 import { Mathematics } from '@tiptap-pro/extension-mathematics';
-import { defaultShouldRender } from '@tiptap-pro/extension-mathematics';
 
 // Modules for code block syntax highlighting
 import css from 'highlight.js/lib/languages/css';
@@ -32,10 +29,11 @@ import python from 'highlight.js/lib/languages/python';
 import c from 'highlight.js/lib/languages/c';
 import cpp from 'highlight.js/lib/languages/cpp';
 import { lowlight } from "lowlight";
+import FileHandler from '@tiptap-pro/extension-file-handler'
 
 import 'katex/dist/katex.min.css';
 import CodeBlockComponent from '@/src/renderer/components/Toolbar/ToolbarButtons/CodeBlockComponent';
-
+import { Image } from '@tiptap/extension-image'
 // TODO: Inside Editor.css: Remove styles for editor and replace with inline tailwind classes
 // The above message was written because ESLint won't lint CSS files
 // Stylesheets
@@ -67,6 +65,9 @@ export default function Editor() {
   lowlight.registerLanguage('css', css)
   lowlight.registerLanguage('js', js)
   lowlight.registerLanguage('ts', ts)
+  lowlight.registerLanguage('python', python)
+  lowlight.registerLanguage('c', c)
+  lowlight.registerLanguage('cpp', cpp)
   const extensions = [
 
     Mathematics.configure({
@@ -116,6 +117,50 @@ export default function Editor() {
     TableRow,
     TableHeader,
     TableCell,
+    Image.configure({
+    allowBase64: true,
+    }),
+    FileHandler.configure({
+      allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
+      onDrop: (currentEditor, files, pos) => {
+        files.forEach(file => {
+          const fileReader = new FileReader()
+
+          fileReader.readAsDataURL(file)
+          fileReader.onload = () => {
+            currentEditor.chain().insertContentAt(pos, {
+              type: 'image',
+              attrs: {
+                src: fileReader.result,
+              },
+            }).focus().run()
+          }
+        })
+      },
+      onPaste: (currentEditor, files, htmlContent) => {
+        files.forEach(file => {
+          if (htmlContent) {
+            // if there is htmlContent, stop manual insertion & let other extensions handle insertion via inputRule
+            // you could extract the pasted file from this url string and upload it to a server for example
+            console.log(htmlContent) // eslint-disable-line no-console
+            return false
+          }
+
+          const fileReader = new FileReader()
+
+          fileReader.readAsDataURL(file)
+          fileReader.onload = () => {
+            currentEditor.chain().insertContentAt(currentEditor.state.selection.anchor, {
+              type: 'image',
+              attrs: {
+                src: fileReader.result,
+              },
+            }).focus().run()
+          }
+        })
+      },
+    })
+,
 
   ];
 
