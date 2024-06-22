@@ -139,3 +139,17 @@ pre {
     font-weight: 700;
   }
 }
+
+.tiptap {
+  .codeBlock {
+    position: relative;
+
+    select {
+      position: absolute;
+      background-color: white;
+
+      right: 0.5rem;
+      top: 0.5rem;
+    }
+  }
+}

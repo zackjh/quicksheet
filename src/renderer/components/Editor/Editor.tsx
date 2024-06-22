@@ -4,7 +4,9 @@ import Toolbar from '@/src/renderer/components/Toolbar/Toolbar';
 import WordCounter from '@/src/renderer/components/WordCounter';
 
 // Tiptap components
-import { EditorProvider } from '@tiptap/react';
+import { EditorProvider, ReactNodeViewRenderer } from '@tiptap/react';
+import { Code } from '@tiptap/extension-code';
+import { CodeBlock } from '@tiptap/extension-code-block';
 import { StarterKit } from '@tiptap/starter-kit';
 import { Color } from '@tiptap/extension-color';
 import { Underline } from '@tiptap/extension-underline';
@@ -19,9 +21,9 @@ import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
 import { TableRow } from '@tiptap/extension-table-row';
 import { Mathematics } from '@tiptap-pro/extension-mathematics';
+import { defaultShouldRender } from '@tiptap-pro/extension-mathematics';
 
 // Modules for code block syntax highlighting
-import { common, createLowlight } from 'lowlight';
 import css from 'highlight.js/lib/languages/css';
 import js from 'highlight.js/lib/languages/javascript';
 import ts from 'highlight.js/lib/languages/typescript';
@@ -29,7 +31,10 @@ import html from 'highlight.js/lib/languages/xml';
 import python from 'highlight.js/lib/languages/python';
 import c from 'highlight.js/lib/languages/c';
 import cpp from 'highlight.js/lib/languages/cpp';
+import { lowlight } from "lowlight/lib/common.js";
+
 import 'katex/dist/katex.min.css';
+import CodeBlockComponent from '@/src/renderer/components/Toolbar/ToolbarButtons/CodeBlockComponent';
 
 // TODO: Inside Editor.css: Remove styles for editor and replace with inline tailwind classes
 // The above message was written because ESLint won't lint CSS files
@@ -51,20 +56,28 @@ const editorFooter = (
   </>
 );
 
+
+
+
 export default function Editor() {
   // Set up code block syntax highlighting
-  const lowlight = createLowlight(common);
-  lowlight.register('css', css);
-  lowlight.register('javascript', js);
-  lowlight.register('typescript', ts);
-  lowlight.register('html', html);
-  lowlight.register('python', python);
-  lowlight.register('c', c);
-  lowlight.register('cpp', cpp);
 
   // Tiptap extensions
   const extensions = [
-    StarterKit.configure({ codeBlock: false }),
+
+    Mathematics.configure({
+        shouldRender: (state, pos, node) => {
+          const $pos = state.doc.resolve(pos)
+          return node.type.name === 'text' && $pos.parent.type.name !== 'codeBlock'
+        }
+
+    }),
+
+
+    StarterKit.configure({
+      // Disable an included extension
+      codeBlock: false,
+    }),
     Highlight,
     TextAlign.configure({
       types: ['heading', 'paragraph'],
@@ -74,9 +87,13 @@ export default function Editor() {
     TextStyle,
     CharacterCount,
     Typography,
-    CodeBlockLowlight.configure({
+    CodeBlockLowlight
+    .extend({
+      addNodeView() {
+        return ReactNodeViewRenderer(CodeBlockComponent)
+      },
+      }).configure({
       lowlight,
-      defaultLanguage: 'javascript',
     }),
     Table.configure({
       resizable: true,
@@ -84,7 +101,7 @@ export default function Editor() {
     TableRow,
     TableHeader,
     TableCell,
-    Mathematics,
+
   ];
 
   // Set base classes for editor styling because tailwind removes them by default
