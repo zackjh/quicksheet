@@ -31,7 +31,7 @@ import html from 'highlight.js/lib/languages/xml';
 import python from 'highlight.js/lib/languages/python';
 import c from 'highlight.js/lib/languages/c';
 import cpp from 'highlight.js/lib/languages/cpp';
-import { lowlight } from "lowlight/lib/common.js";
+import { lowlight } from "lowlight";
 
 import 'katex/dist/katex.min.css';
 import CodeBlockComponent from '@/src/renderer/components/Toolbar/ToolbarButtons/CodeBlockComponent';
@@ -63,6 +63,10 @@ export default function Editor() {
   // Set up code block syntax highlighting
 
   // Tiptap extensions
+  lowlight.registerLanguage('html', html)
+  lowlight.registerLanguage('css', css)
+  lowlight.registerLanguage('js', js)
+  lowlight.registerLanguage('ts', ts)
   const extensions = [
 
     Mathematics.configure({
@@ -92,6 +96,17 @@ export default function Editor() {
       addNodeView() {
         return ReactNodeViewRenderer(CodeBlockComponent)
       },
+      addKeyboardShortcuts() {
+        return {
+          Tab: () => {
+            if (this.editor.isActive("codeBlock")) {
+              this.editor.commands.insertContent("\t");
+              return true; // Indicate the command was handled
+            }
+            return false; // Indicate the command was not handled
+          },
+        };
+      }
       }).configure({
       lowlight,
     }),
