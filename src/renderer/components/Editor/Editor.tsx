@@ -2,6 +2,7 @@
 import MenuBar from '@/src/renderer/components/MenuBar/MenuBar';
 import Toolbar from '@/src/renderer/components/Toolbar/Toolbar';
 import WordCounter from '@/src/renderer/components/WordCounter';
+import CodeBlockNode from '@/src/renderer/components/CodeBlockNode';
 
 // Tiptap components
 import { EditorProvider, ReactNodeViewRenderer } from '@tiptap/react';
@@ -28,12 +29,11 @@ import html from 'highlight.js/lib/languages/xml';
 import python from 'highlight.js/lib/languages/python';
 import c from 'highlight.js/lib/languages/c';
 import cpp from 'highlight.js/lib/languages/cpp';
-import { lowlight } from "lowlight";
-import FileHandler from '@tiptap-pro/extension-file-handler'
+import { lowlight } from 'lowlight';
+import { FileHandler } from '@tiptap-pro/extension-file-handler';
+import { Image } from '@tiptap/extension-image';
 
 import 'katex/dist/katex.min.css';
-import CodeBlockComponent from '@/src/renderer/components/Toolbar/ToolbarButtons/CodeBlockComponent';
-import { Image } from '@tiptap/extension-image'
 // TODO: Inside Editor.css: Remove styles for editor and replace with inline tailwind classes
 // The above message was written because ESLint won't lint CSS files
 // Stylesheets
@@ -54,30 +54,26 @@ const editorFooter = (
   </>
 );
 
-
-
-
 export default function Editor() {
   // Set up code block syntax highlighting
 
   // Tiptap extensions
-  lowlight.registerLanguage('html', html)
-  lowlight.registerLanguage('css', css)
-  lowlight.registerLanguage('js', js)
-  lowlight.registerLanguage('ts', ts)
-  lowlight.registerLanguage('python', python)
-  lowlight.registerLanguage('c', c)
-  lowlight.registerLanguage('cpp', cpp)
+  lowlight.registerLanguage('html', html);
+  lowlight.registerLanguage('css', css);
+  lowlight.registerLanguage('js', js);
+  lowlight.registerLanguage('ts', ts);
+  lowlight.registerLanguage('python', python);
+  lowlight.registerLanguage('c', c);
+  lowlight.registerLanguage('cpp', cpp);
   const extensions = [
-
     Mathematics.configure({
-        shouldRender: (state, pos, node) => {
-          const $pos = state.doc.resolve(pos)
-          return node.type.name === 'text' && $pos.parent.type.name !== 'codeBlock'
-        }
-
+      shouldRender: (state, pos, node) => {
+        const $pos = state.doc.resolve(pos);
+        return (
+          node.type.name === 'text' && $pos.parent.type.name !== 'codeBlock'
+        );
+      },
     }),
-
 
     StarterKit.configure({
       // Disable an included extension
@@ -92,23 +88,22 @@ export default function Editor() {
     TextStyle,
     CharacterCount,
     Typography,
-    CodeBlockLowlight
-    .extend({
+    CodeBlockLowlight.extend({
       addNodeView() {
-        return ReactNodeViewRenderer(CodeBlockComponent)
+        return ReactNodeViewRenderer(CodeBlockNode);
       },
       addKeyboardShortcuts() {
         return {
           Tab: () => {
-            if (this.editor.isActive("codeBlock")) {
-              this.editor.commands.insertContent("\t");
+            if (this.editor.isActive('codeBlock')) {
+              this.editor.commands.insertContent('\t');
               return true; // Indicate the command was handled
             }
             return false; // Indicate the command was not handled
           },
         };
-      }
-      }).configure({
+      },
+    }).configure({
       lowlight,
     }),
     Table.configure({
@@ -118,50 +113,56 @@ export default function Editor() {
     TableHeader,
     TableCell,
     Image.configure({
-    allowBase64: true,
+      allowBase64: true,
     }),
     FileHandler.configure({
       allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
       onDrop: (currentEditor, files, pos) => {
-        files.forEach(file => {
-          const fileReader = new FileReader()
+        files.forEach((file) => {
+          const fileReader = new FileReader();
 
-          fileReader.readAsDataURL(file)
+          fileReader.readAsDataURL(file);
           fileReader.onload = () => {
-            currentEditor.chain().insertContentAt(pos, {
-              type: 'image',
-              attrs: {
-                src: fileReader.result,
-              },
-            }).focus().run()
-          }
-        })
+            currentEditor
+              .chain()
+              .insertContentAt(pos, {
+                type: 'image',
+                attrs: {
+                  src: fileReader.result,
+                },
+              })
+              .focus()
+              .run();
+          };
+        });
       },
       onPaste: (currentEditor, files, htmlContent) => {
-        files.forEach(file => {
+        files.forEach((file) => {
           if (htmlContent) {
             // if there is htmlContent, stop manual insertion & let other extensions handle insertion via inputRule
             // you could extract the pasted file from this url string and upload it to a server for example
-            console.log(htmlContent) // eslint-disable-line no-console
-            return false
+            console.log(htmlContent); // eslint-disable-line no-console
+            return false;
           }
 
-          const fileReader = new FileReader()
+          const fileReader = new FileReader();
 
-          fileReader.readAsDataURL(file)
+          fileReader.readAsDataURL(file);
           fileReader.onload = () => {
-            currentEditor.chain().insertContentAt(currentEditor.state.selection.anchor, {
-              type: 'image',
-              attrs: {
-                src: fileReader.result,
-              },
-            }).focus().run()
-          }
-        })
+            currentEditor
+              .chain()
+              .insertContentAt(currentEditor.state.selection.anchor, {
+                type: 'image',
+                attrs: {
+                  src: fileReader.result,
+                },
+              })
+              .focus()
+              .run();
+          };
+        });
       },
-    })
-,
-
+    }),
   ];
 
   // Set base classes for editor styling because tailwind removes them by default

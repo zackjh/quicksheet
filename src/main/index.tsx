@@ -29,12 +29,18 @@ function createWindow(): void {
     const menu = new Menu();
     let menuItemsAdded = false;
 
+    const replaceMisspelling = (suggestion: string) => {
+      mainWindow?.webContents.replaceMisspelling(suggestion);
+    };
+
     // Add each spelling suggestion
     for (const suggestion of params.dictionarySuggestions) {
-      menu.append(new MenuItem({
-        label: suggestion,
-        click: () => mainWindow!.webContents.replaceMisspelling(suggestion)
-      }));
+      menu.append(
+        new MenuItem({
+          label: suggestion,
+          click: () => replaceMisspelling(suggestion),
+        })
+      );
       menuItemsAdded = true;
     }
 
@@ -43,7 +49,10 @@ function createWindow(): void {
       menu.append(
         new MenuItem({
           label: 'Add to dictionary',
-          click: () => mainWindow!.webContents.session.addWordToSpellCheckerDictionary(params.misspelledWord)
+          click: () =>
+            mainWindow?.webContents.session.addWordToSpellCheckerDictionary(
+              params.misspelledWord
+            ),
         })
       );
       menuItemsAdded = true;
