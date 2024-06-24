@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import Editor from '@/src/renderer/components/Editor/Editor';
+import Editor from './components/Editor/Editor';
 import '@fontsource/open-sans';
 import '@/src/renderer/App.css';
 

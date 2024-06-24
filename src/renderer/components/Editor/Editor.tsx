@@ -20,6 +20,8 @@ import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
 import { TableRow } from '@tiptap/extension-table-row';
 import { Mathematics } from '@tiptap-pro/extension-mathematics';
+import { FontFamily } from '@tiptap/extension-font-family';
+import { LiteralTab } from '@/lib/LiteralTab';
 
 // Modules for code block syntax highlighting
 import css from 'highlight.js/lib/languages/css';
@@ -56,8 +58,6 @@ const editorFooter = (
 
 export default function Editor() {
   // Set up code block syntax highlighting
-
-  // Tiptap extensions
   lowlight.registerLanguage('html', html);
   lowlight.registerLanguage('css', css);
   lowlight.registerLanguage('js', js);
@@ -65,7 +65,12 @@ export default function Editor() {
   lowlight.registerLanguage('python', python);
   lowlight.registerLanguage('c', c);
   lowlight.registerLanguage('cpp', cpp);
+
+  // Tiptap extensions
+  // IMPORTANT: LiteralTab must be placed before StaterKit or ListItem extension(s) in order to retain
+  // the default 'indent using Tab' keyboard shortcut for lists
   const extensions = [
+    LiteralTab,
     Mathematics.configure({
       shouldRender: (state, pos, node) => {
         const $pos = state.doc.resolve(pos);
@@ -74,7 +79,6 @@ export default function Editor() {
         );
       },
     }),
-
     StarterKit.configure({
       // Disable an included extension
       codeBlock: false,
@@ -163,6 +167,7 @@ export default function Editor() {
         });
       },
     }),
+    FontFamily,
   ];
 
   // Set base classes for editor styling because tailwind removes them by default
