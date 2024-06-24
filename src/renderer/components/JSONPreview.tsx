@@ -1,6 +1,5 @@
 import { useCurrentEditor } from '@tiptap/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileExport } from '@fortawesome/free-solid-svg-icons';
+import { FolderOutput } from 'lucide-react';
 
 export default function JSONPreview() {
   const jsonStyle = {
@@ -38,7 +37,7 @@ export default function JSONPreview() {
       <p>
         JSON to export:
         <button onClick={exportJSON}>
-          <FontAwesomeIcon icon={faFileExport} />
+          <FolderOutput />
         </button>
       </p>
       <pre style={jsonStyle}>
