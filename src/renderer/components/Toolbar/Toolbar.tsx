@@ -21,10 +21,9 @@ import TableButton from '@/src/renderer/components/Toolbar/ToolbarButtons/TableB
 
 export const toolbarStyles = {
   iconButton:
-    'bg-slate-200 rounded w-7 h-7 m-px text-neutral-700 hover:bg-slate-300 active:bg-slate-400 focus-visible:ring-1 focus-visible:ring-slate-700 focus-visible:ring-offset-0 ring-inset',
+    'm-px h-7 w-7 rounded bg-slate-200 text-neutral-700 ring-inset hover:bg-slate-300 focus-visible:ring-1 focus-visible:ring-slate-700 focus-visible:ring-offset-0 active:bg-slate-400',
   iconButtonActive: 'bg-blue-200 hover:bg-blue-200',
-  icon: 'w-4 h-4',
-  divider: 'bg-slate-400 w-px h-6 mx-[3px]',
+  icon: 'h-4 w-4',
 };
 
 export default function Toolbar() {

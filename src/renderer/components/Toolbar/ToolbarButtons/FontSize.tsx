@@ -25,7 +25,6 @@ export default function FontSize() {
 
   const handleFontSizeDecrease = () => {
     let newFontSize;
-
     if (fontSize <= 10) {
       newFontSize = fontSize - 0.5;
     } else {
@@ -50,10 +49,10 @@ export default function FontSize() {
 
   const styles = {
     input:
-      'bg-slate-200 w-10 h-7 border-slate-500 mx-[2px] focus-visible:ring-1 focus-visible:ring-blue-400 focus-visible:ring-offset-0 focus-visible:border-blue-400 text-center p-0',
+      'mx-[2px] h-7 w-10 border-slate-500 bg-slate-200 p-0 text-center focus-visible:border-blue-400 focus-visible:ring-1 focus-visible:ring-blue-400 focus-visible:ring-offset-0',
     button:
-      'bg-slate-200 rounded w-6 h-6 m-px text-neutral-700 hover:bg-slate-300 active:bg-slate-400 focus-visible:ring-1 focus-visible:ring-slate-700 focus-visible:ring-offset-0 ring-inset',
-    icon: 'w-3 h-3',
+      'm-px h-6 w-6 rounded bg-slate-200 text-neutral-700 ring-inset hover:bg-slate-300 focus-visible:ring-1 focus-visible:ring-slate-700 focus-visible:ring-offset-0 active:bg-slate-400',
+    icon: 'h-3 w-3',
   };
 
   return (
