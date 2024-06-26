@@ -1,5 +1,3 @@
-import { toolbarStyles } from '@/src/renderer/components/Toolbar/Toolbar';
-
 export default function Divider() {
-  return <div className={toolbarStyles.divider}></div>;
+  return <div className='mx-[3px] h-6 w-px bg-slate-400'></div>;
 }
