@@ -16,14 +16,10 @@ export default function FontSelect() {
 
   const handleFontChange = (newFont: string) => {
     setCurrentFont(newFont);
-    // ISSUE: The .focus() here doesn't work for some reason
+    // TODO: The .focus() here doesn't work for some reason
     // I think it has something to do with the default focus behavior of the shadcn <Select> component
     editor?.chain().focus().setFontFamily(newFont).run();
   };
-
-  // This .focus() call has to be here in order for the editor to be refocused after the font is changed
-  // Do not remove this unless a solution to the above issue is found
-  editor?.commands.focus();
 
   const selectItems = fontFamilies.sort().map((fontFamily) => (
     <SelectItem
