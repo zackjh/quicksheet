@@ -2,6 +2,7 @@ import Divider from '@/src/renderer/components/Toolbar/ToolbarButtons/Divider';
 import UndoButton from '@/src/renderer/components/Toolbar/ToolbarButtons/UndoButton';
 import RedoButton from '@/src/renderer/components/Toolbar/ToolbarButtons/RedoButton';
 import FontSelect from '@/src/renderer/components/Toolbar/ToolbarButtons/FontSelect';
+import FontSize from '@/src/renderer/components/Toolbar/ToolbarButtons/FontSize';
 import BoldButton from '@/src/renderer/components/Toolbar/ToolbarButtons/BoldButton';
 import ItalicButton from '@/src/renderer/components/Toolbar/ToolbarButtons/ItalicButton';
 import UnderlineButton from '@/src/renderer/components/Toolbar/ToolbarButtons/UnderlineButton';
@@ -33,6 +34,8 @@ export default function Toolbar() {
       <RedoButton />
       <Divider />
       <FontSelect />
+      <Divider />
+      <FontSize />
       <Divider />
       <BoldButton />
       <ItalicButton />
