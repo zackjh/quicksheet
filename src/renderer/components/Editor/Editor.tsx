@@ -23,6 +23,7 @@ import { Mathematics } from '@tiptap-pro/extension-mathematics';
 import { FontFamily } from '@tiptap/extension-font-family';
 import { LiteralTab } from '@/lib/LiteralTab';
 import { FontSize } from 'tiptap-extension-font-size';
+import { Placeholder } from '@tiptap/extension-placeholder';
 
 // Modules for code block syntax highlighting
 import css from 'highlight.js/lib/languages/css';
@@ -170,6 +171,9 @@ export default function Editor() {
     }),
     FontFamily,
     FontSize,
+    Placeholder.configure({
+      placeholder: 'Write something …',
+    }),
   ];
 
   // Set base classes for editor styling because tailwind removes them by default
