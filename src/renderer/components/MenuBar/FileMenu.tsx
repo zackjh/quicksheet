@@ -1,8 +1,9 @@
-import { useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useCurrentEditor } from '@tiptap/react';
 import printAsPDF from '@/lib/printAsPDF';
 import importFile from '@/lib/importFile';
 import exportAsJSON from '@/lib/exportAsJSON';
+import { getProseMirror } from '@/lib/utils';
 import { Button } from '@/src/renderer/ui/button';
 import {
   Dialog,
@@ -87,6 +88,31 @@ export default function FileMenu() {
 }
 
 export function PageSetupDialogContent() {
+  const [pageOrientation, setPageOrientation] = useState<
+    'portrait' | 'landscape'
+  >('portrait');
+
+  useEffect(() => {
+    const prosemirror = getProseMirror();
+    const aspectRatio = getComputedStyle(prosemirror).aspectRatio;
+    if (aspectRatio === '1 / 1.414') {
+      setPageOrientation('portrait');
+    } else if (aspectRatio === '1.414') {
+      setPageOrientation('landscape');
+    }
+  }, []);
+
+  const handlePageOrientationChange = (newOrientation: string) => {
+    const prosemirror = getProseMirror();
+    if (newOrientation === 'portrait') {
+      setPageOrientation('portrait');
+      prosemirror.style.aspectRatio = '1 / 1.414';
+    } else if (newOrientation === 'landscape') {
+      setPageOrientation('landscape');
+      prosemirror.style.aspectRatio = '1.414';
+    }
+  };
+
   const styles = {
     radioInput:
       'border-slate-500 text-neutral-700 aria-checked:border-blue-400 focus-visible:border-blue-400 focus-visible:ring-0 focus-visible:ring-offset-0',
@@ -110,7 +136,12 @@ export function PageSetupDialogContent() {
             <Label htmlFor='page-orientation' className='font-semibold'>
               Orientation
             </Label>
-            <RadioGroup className='ml-px mt-3 flex' id='page-orientation'>
+            <RadioGroup
+              className='ml-px mt-3 flex'
+              id='page-orientation'
+              value={pageOrientation}
+              onValueChange={handlePageOrientationChange}
+            >
               <div className='flex items-center space-x-1'>
                 <RadioGroupItem
                   value='portrait'
