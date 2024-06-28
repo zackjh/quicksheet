@@ -1,6 +1,8 @@
 import Divider from '@/src/renderer/components/Toolbar/ToolbarButtons/Divider';
 import UndoButton from '@/src/renderer/components/Toolbar/ToolbarButtons/UndoButton';
 import RedoButton from '@/src/renderer/components/Toolbar/ToolbarButtons/RedoButton';
+import DeletePageButton from '@/src/renderer/components/Toolbar/ToolbarButtons/DeletePageButton';
+import AddPageButton from '@/src/renderer/components/Toolbar/ToolbarButtons/AddPageButton';
 import FontSelect from '@/src/renderer/components/Toolbar/ToolbarButtons/FontSelect';
 import FontSize from '@/src/renderer/components/Toolbar/ToolbarButtons/FontSize';
 import BoldButton from '@/src/renderer/components/Toolbar/ToolbarButtons/BoldButton';
@@ -31,6 +33,9 @@ export default function Toolbar() {
     <div className='mx-5 mb-5 flex h-9 items-center rounded-full bg-slate-200 px-3'>
       <UndoButton />
       <RedoButton />
+      <Divider />
+      <DeletePageButton />
+      <AddPageButton />
       <Divider />
       <FontSelect />
       <Divider />
