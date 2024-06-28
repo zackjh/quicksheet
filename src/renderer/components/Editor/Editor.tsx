@@ -23,6 +23,7 @@ import { Mathematics } from '@tiptap-pro/extension-mathematics';
 import { FontFamily } from '@tiptap/extension-font-family';
 import { LiteralTab } from '@/lib/LiteralTab';
 import { FontSize } from 'tiptap-extension-font-size';
+import PageBreak from '@/lib/PageBreak';
 
 // Modules for code block syntax highlighting
 import css from 'highlight.js/lib/languages/css';
@@ -158,6 +159,7 @@ const extensions = [
   }),
   FontFamily,
   FontSize,
+  PageBreak,
 ];
 
 // Set base classes for editor styling because tailwind removes them by default
