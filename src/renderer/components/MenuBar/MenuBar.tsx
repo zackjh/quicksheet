@@ -1,4 +1,5 @@
 import FileMenu from '@/src/renderer/components/MenuBar/FileMenu';
+import InsertMenu from '@/src/renderer/components/MenuBar/InsertMenu';
 import {
   Menubar,
   MenubarContent,
@@ -26,6 +27,7 @@ export default function MenuBar() {
           <MenubarItem>PLACEHOLDER</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
+      <InsertMenu />
     </Menubar>
   );
 }
