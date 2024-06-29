@@ -3,7 +3,7 @@ import { useCurrentEditor } from '@tiptap/react';
 import printAsPDF from '@/lib/printAsPDF';
 import importFile from '@/lib/importFile';
 import exportAsJSON from '@/lib/exportAsJSON';
-import { getProseMirror } from '@/lib/utils';
+import { getProseMirror, pixelsToCm, isNumber } from '@/lib/utils';
 import { Button } from '@/src/renderer/ui/button';
 import {
   Dialog,
@@ -88,29 +88,106 @@ export default function FileMenu() {
 }
 
 export function PageSetupDialogContent() {
-  const [pageOrientation, setPageOrientation] = useState<
-    'portrait' | 'landscape'
-  >('portrait');
+  const [pageOrientation, setPageOrientation] =
+    useState<PageOrientation>('portrait');
+  const [margins, setMargins] = useState<Margins>({
+    top: 2.54,
+    bottom: 2.54,
+    left: 2.54,
+    right: 2.54,
+  });
+  const [columnCount, setColumnCount] = useState(1);
+  const [columnSpacing, setColumnSpacing] = useState(3);
 
   useEffect(() => {
     const prosemirror = getProseMirror();
-    const aspectRatio = getComputedStyle(prosemirror).aspectRatio;
-    if (aspectRatio === '1 / 1.414') {
+    const computed = getComputedStyle(prosemirror);
+
+    if (computed.aspectRatio === '1 / 1.414') {
       setPageOrientation('portrait');
-    } else if (aspectRatio === '1.414') {
+    } else if (computed.aspectRatio === '1.414') {
       setPageOrientation('landscape');
     }
+
+    const newMargins: Margins = {
+      top: pixelsToCm(parseInt(computed.paddingTop)),
+      bottom: pixelsToCm(parseInt(computed.paddingBottom)),
+      left: pixelsToCm(parseInt(computed.paddingLeft)),
+      right: pixelsToCm(parseInt(computed.paddingRight)),
+    };
+
+    setMargins(newMargins);
   }, []);
 
   const handlePageOrientationChange = (newOrientation: string) => {
-    const prosemirror = getProseMirror();
     if (newOrientation === 'portrait') {
       setPageOrientation('portrait');
-      prosemirror.style.aspectRatio = '1 / 1.414';
     } else if (newOrientation === 'landscape') {
       setPageOrientation('landscape');
+    }
+  };
+
+  const handleMarginChange = (e: React.FormEvent<HTMLInputElement>) => {
+    if (isNumber(e.currentTarget.value)) {
+      const id = e.currentTarget.id;
+      const newValue = Number(e.currentTarget.value);
+
+      switch (id) {
+        case 'margin-top':
+          setMargins({ ...margins, top: newValue });
+          break;
+        case 'margin-bottom':
+          setMargins({ ...margins, bottom: newValue });
+          break;
+        case 'margin-left':
+          setMargins({ ...margins, left: newValue });
+          break;
+        case 'margin-right':
+          setMargins({ ...margins, right: newValue });
+          break;
+        default:
+          console.error('An error occurred while updating margins!');
+      }
+    }
+  };
+
+  const handleColumnCountChange = (e: React.FormEvent<HTMLInputElement>) => {
+    if (isNumber(e.currentTarget.value)) {
+      setColumnCount(Number(e.currentTarget.value));
+    }
+  };
+
+  const handleColumnSpacingChange = (e: React.FormEvent<HTMLInputElement>) => {
+    if (isNumber(e.currentTarget.value)) {
+      setColumnSpacing(Number(e.currentTarget.value));
+    }
+  };
+
+  const handleSetDefault = () => {
+    setPageOrientation('portrait');
+    setMargins({
+      top: 2.54,
+      bottom: 2.54,
+      left: 2.54,
+      right: 2.54,
+    });
+    setColumnCount(1);
+    setColumnSpacing(3);
+  };
+
+  const handleUpdatePageSetup = () => {
+    const prosemirror = getProseMirror();
+
+    if (pageOrientation === 'portrait') {
+      prosemirror.style.aspectRatio = '1 / 1.414';
+    } else if (pageOrientation === 'landscape') {
       prosemirror.style.aspectRatio = '1.414';
     }
+
+    prosemirror.style.paddingTop = margins.top + 'cm';
+    prosemirror.style.paddingBottom = margins.bottom + 'cm';
+    prosemirror.style.paddingLeft = margins.left + 'cm';
+    prosemirror.style.paddingRight = margins.right + 'cm';
   };
 
   const styles = {
@@ -169,27 +246,30 @@ export function PageSetupDialogContent() {
               Columns
             </Label>
             <Input
-              type='text'
-              inputMode='numeric'
+              type='number'
               className={clsx(styles.numberInput, 'ml-px mt-1')}
-              id='columns'
+              id='column-count'
+              value={columnCount}
+              onChange={handleColumnCountChange}
             />
           </div>
           <div>
             <Label htmlFor='column-spacing' className='font-semibold'>
-              Column Spacing
+              Column Spacing{' '}
+              <span className='font-normal text-neutral-500'>(cm)</span>
             </Label>
             <Input
-              type='text'
-              inputMode='numeric'
+              type='number'
               className={clsx(styles.numberInput, 'ml-px mt-1')}
               id='column-spacing'
+              value={columnSpacing}
+              onChange={handleColumnSpacingChange}
             />
           </div>
         </div>
         <div className='ml-14'>
           <Label htmlFor='margins' className='font-semibold'>
-            Margins
+            Margins <span className='font-normal text-neutral-500'>(cm)</span>
           </Label>
           <div className='mt-1 space-y-5' id='margins'>
             <div className={styles.margins.inputDiv}>
@@ -197,8 +277,9 @@ export function PageSetupDialogContent() {
                 Top
               </Label>
               <Input
-                type='text'
-                inputMode='numeric'
+                type='number'
+                value={margins.top}
+                onChange={handleMarginChange}
                 className={styles.numberInput}
                 id='margin-top'
               />
@@ -208,8 +289,9 @@ export function PageSetupDialogContent() {
                 Bottom
               </Label>
               <Input
-                type='text'
-                inputMode='numeric'
+                type='number'
+                value={margins.bottom}
+                onChange={handleMarginChange}
                 className={styles.numberInput}
                 id='margin-bottom'
               />
@@ -219,8 +301,9 @@ export function PageSetupDialogContent() {
                 Left
               </Label>
               <Input
-                type='text'
-                inputMode='numeric'
+                type='number'
+                value={margins.left}
+                onChange={handleMarginChange}
                 className={styles.numberInput}
                 id='margin-left'
               />
@@ -230,8 +313,9 @@ export function PageSetupDialogContent() {
                 Right
               </Label>
               <Input
-                type='text'
-                inputMode='numeric'
+                type='number'
+                value={margins.right}
+                onChange={handleMarginChange}
                 className={styles.numberInput}
                 id='margin-right'
               />
@@ -244,6 +328,7 @@ export function PageSetupDialogContent() {
           type='button'
           variant='outline'
           className='text-blue-500 hover:border-blue-100 hover:bg-blue-50 hover:text-blue-500 focus:bg-blue-50 focus-visible:border-blue-100 focus-visible:ring-0 focus-visible:ring-offset-0'
+          onClick={handleSetDefault}
         >
           Set as default
         </Button>
@@ -261,6 +346,7 @@ export function PageSetupDialogContent() {
             <Button
               type='button'
               className='ml-3 w-16 bg-blue-500 hover:bg-blue-500/90 focus-visible:bg-blue-500/70 focus-visible:ring-0 focus-visible:ring-offset-0'
+              onClick={handleUpdatePageSetup}
             >
               OK
             </Button>
@@ -269,4 +355,13 @@ export function PageSetupDialogContent() {
       </DialogFooter>
     </DialogContent>
   );
+}
+
+type PageOrientation = 'portrait' | 'landscape';
+
+interface Margins {
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
 }
