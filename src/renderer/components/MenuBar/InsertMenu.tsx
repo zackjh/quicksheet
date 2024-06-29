@@ -1,15 +1,15 @@
-import { useCurrentEditor } from '@tiptap/react';
 import {
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarSeparator,
   MenubarTrigger,
 } from '@/src/renderer/ui/menubar';
 import { menubarStyles } from '@/src/renderer/components/MenuBar/MenuBar';
 
 export default function InsertMenu() {
-  const { editor } = useCurrentEditor();
+  const handleInsertPage = () => {
+    console.log('handleInsertPage was fired!');
+  };
 
   return (
     <MenubarMenu>
@@ -17,7 +17,7 @@ export default function InsertMenu() {
         Insert
       </MenubarTrigger>
       <MenubarContent>
-        <MenubarItem>Page break</MenubarItem>
+        <MenubarItem onClick={handleInsertPage}>New page</MenubarItem>
       </MenubarContent>
     </MenubarMenu>
   );
