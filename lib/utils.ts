@@ -19,3 +19,11 @@ export function getProseMirror() {
   const prosemirror = elements[0] as HTMLDivElement;
   return prosemirror;
 }
+
+export function pixelsToCm(px: number) {
+  return (px / 96) * 2.54;
+}
+
+export function isNumber(str: string): boolean {
+  return /^[+-]?\d+(\.\d+)?$/.test(str);
+}
