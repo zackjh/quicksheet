@@ -1,24 +1,27 @@
-/* TODO: Remove styles for editor and replace with inline tailwind classes */
-/* Styles for editor */
+/* Styles for page */
 .ProseMirror {
   aspect-ratio: 1/1.414;
   background-color: #ffffff;
   border: 1px solid #c7c7c7;
-  font-family: Arial;
-  font-size: 14px;
+  font-family: 'Inter Variable';
   margin: auto;
   outline: none;
-  padding: 7% 9%;
+  padding-top: 1in;
+  padding-bottom: 1in;
+  padding-left: 1in;
+  padding-right: 1in;
   width: 60%;
 }
 
+/* Styles for text */
 .ProseMirror > p {
-  margin: 2px 0px;
-  padding: 0px;
+  font-size: 11pt;
+  margin: 0px;
 }
 
 /* Styles for tables */
 table {
+  background-color: red;
   border-collapse: collapse;
   table-layout: fixed;
   width: 100%;

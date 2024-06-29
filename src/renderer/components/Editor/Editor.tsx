@@ -37,11 +37,11 @@ import { lowlight } from 'lowlight';
 import { FileHandler } from '@tiptap-pro/extension-file-handler';
 import { Image } from '@tiptap/extension-image';
 
-import 'katex/dist/katex.min.css';
-// TODO: Inside Editor.css: Remove styles for editor and replace with inline tailwind classes
-// The above message was written because ESLint won't lint CSS files
 // Stylesheets
 import '@/src/renderer/components/Editor/Editor.css';
+
+// Others
+import 'katex/dist/katex.min.css';
 
 const editorHeader = (
   <>
@@ -50,7 +50,6 @@ const editorHeader = (
   </>
 );
 
-// TODO: Decide what to do with the editorFooter
 const editorFooter = (
   <>
     <WordCounter />
@@ -162,13 +161,9 @@ const extensions = [
   PageBreak,
 ];
 
-// Set base classes for editor styling because tailwind removes them by default
-const editorProps = {
-  attributes: {
-    class:
-      'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
-  },
-};
+// Base classes for editor styling because tailwind removes them by default
+const defaultProseMirrorClasses =
+  'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none';
 
 // Set up code block syntax highlighting
 lowlight.registerLanguage('html', html);
@@ -180,6 +175,12 @@ lowlight.registerLanguage('c', c);
 lowlight.registerLanguage('cpp', cpp);
 
 export default function Editor() {
+  const editorProps = {
+    attributes: {
+      class: defaultProseMirrorClasses,
+    },
+  };
+
   return (
     <EditorProvider
       extensions={extensions}
