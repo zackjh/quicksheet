@@ -23,7 +23,9 @@ import { Mathematics } from '@tiptap-pro/extension-mathematics';
 import { FontFamily } from '@tiptap/extension-font-family';
 import { LiteralTab } from '@/lib/LiteralTab';
 import { FontSize } from 'tiptap-extension-font-size';
+import { Placeholder } from '@tiptap/extension-placeholder';
 import PageBreak from '@/lib/PageBreak';
+
 
 // Modules for code block syntax highlighting
 import css from 'highlight.js/lib/languages/css';
@@ -173,6 +175,7 @@ lowlight.registerLanguage('ts', ts);
 lowlight.registerLanguage('python', python);
 lowlight.registerLanguage('c', c);
 lowlight.registerLanguage('cpp', cpp);
+
 
 export default function Editor() {
   const editorProps = {
