@@ -26,7 +26,6 @@ import { FontSize } from 'tiptap-extension-font-size';
 import { Placeholder } from '@tiptap/extension-placeholder';
 import PageBreak from '@/lib/PageBreak';
 
-
 // Modules for code block syntax highlighting
 import css from 'highlight.js/lib/languages/css';
 import js from 'highlight.js/lib/languages/javascript';
@@ -162,11 +161,8 @@ const extensions = [
   FontSize,
   PageBreak,
   Placeholder.configure({
-
     placeholder: 'Write something …',
-
   }),
-
 ];
 
 // Base classes for editor styling because tailwind removes them by default
@@ -181,7 +177,6 @@ lowlight.registerLanguage('ts', ts);
 lowlight.registerLanguage('python', python);
 lowlight.registerLanguage('c', c);
 lowlight.registerLanguage('cpp', cpp);
-
 
 export default function Editor() {
   const editorProps = {
