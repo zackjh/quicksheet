@@ -46,7 +46,7 @@ describe('Test inserting text', () => {
 
       // Simulate typing text into the editor like a user
       const textToType = 'Hello, this is a test typing into Tiptap!'; //clear text
-      for (const char of textToType) {
+      for (let i= 0; i< textToType.length; i++) {
           await browser.keys('Backspace');
           await browser.pause(100); // Pause between keystrokes to simulate real typing speed
       }
