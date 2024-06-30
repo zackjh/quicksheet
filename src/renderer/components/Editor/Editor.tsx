@@ -2,7 +2,7 @@
 import MenuBar from '@/src/renderer/components/MenuBar/MenuBar';
 import Toolbar from '@/src/renderer/components/Toolbar/Toolbar';
 import WordCounter from '@/src/renderer/components/WordCounter';
-import CodeBlockNode from '@/src/renderer/components/CodeBlockNode';
+import CodeBlockNode from '@/src/renderer/components/CodeBlockComponent';
 
 // Tiptap components
 import { EditorProvider, ReactNodeViewRenderer } from '@tiptap/react';
@@ -23,6 +23,7 @@ import { Mathematics } from '@tiptap-pro/extension-mathematics';
 import { FontFamily } from '@tiptap/extension-font-family';
 import { LiteralTab } from '@/lib/LiteralTab';
 import { FontSize } from 'tiptap-extension-font-size';
+import PageBreak from '@/lib/PageBreak';
 
 // Modules for code block syntax highlighting
 import css from 'highlight.js/lib/languages/css';
@@ -36,11 +37,11 @@ import { lowlight } from 'lowlight';
 import { FileHandler } from '@tiptap-pro/extension-file-handler';
 import { Image } from '@tiptap/extension-image';
 
-import 'katex/dist/katex.min.css';
-// TODO: Inside Editor.css: Remove styles for editor and replace with inline tailwind classes
-// The above message was written because ESLint won't lint CSS files
 // Stylesheets
 import '@/src/renderer/components/Editor/Editor.css';
+
+// Others
+import 'katex/dist/katex.min.css';
 
 const editorHeader = (
   <>
@@ -49,7 +50,6 @@ const editorHeader = (
   </>
 );
 
-// TODO: Decide what to do with the editorFooter
 const editorFooter = (
   <>
     <WordCounter />
@@ -57,126 +57,127 @@ const editorFooter = (
   </>
 );
 
-export default function Editor() {
-  // Set up code block syntax highlighting
-  lowlight.registerLanguage('html', html);
-  lowlight.registerLanguage('css', css);
-  lowlight.registerLanguage('js', js);
-  lowlight.registerLanguage('ts', ts);
-  lowlight.registerLanguage('python', python);
-  lowlight.registerLanguage('c', c);
-  lowlight.registerLanguage('cpp', cpp);
-
-  // Tiptap extensions
-  // IMPORTANT: LiteralTab must be placed before StaterKit or ListItem extension(s) in order to retain
-  // the default 'indent using Tab' keyboard shortcut for lists
-  const extensions = [
-    LiteralTab,
-    Mathematics.configure({
-      shouldRender: (state, pos, node) => {
-        const $pos = state.doc.resolve(pos);
-        return (
-          node.type.name === 'text' && $pos.parent.type.name !== 'codeBlock'
-        );
-      },
-    }),
-    StarterKit.configure({
-      // Disable an included extension
-      codeBlock: false,
-    }),
-    Highlight,
-    TextAlign.configure({
-      types: ['heading', 'paragraph'],
-    }),
-    Underline,
-    Color,
-    TextStyle,
-    CharacterCount,
-    Typography,
-    CodeBlockLowlight.extend({
-      addNodeView() {
-        return ReactNodeViewRenderer(CodeBlockNode);
-      },
-      addKeyboardShortcuts() {
-        return {
-          Tab: () => {
-            if (this.editor.isActive('codeBlock')) {
-              this.editor.commands.insertContent('\t');
-              return true; // Indicate the command was handled
-            }
-            return false; // Indicate the command was not handled
-          },
-        };
-      },
-    }).configure({
-      lowlight,
-    }),
-    Table.configure({
-      resizable: true,
-    }),
-    TableRow,
-    TableHeader,
-    TableCell,
-    Image.configure({
-      allowBase64: true,
-    }),
-    FileHandler.configure({
-      allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
-      onDrop: (currentEditor, files, pos) => {
-        files.forEach((file) => {
-          const fileReader = new FileReader();
-
-          fileReader.readAsDataURL(file);
-          fileReader.onload = () => {
-            currentEditor
-              .chain()
-              .insertContentAt(pos, {
-                type: 'image',
-                attrs: {
-                  src: fileReader.result,
-                },
-              })
-              .focus()
-              .run();
-          };
-        });
-      },
-      onPaste: (currentEditor, files, htmlContent) => {
-        files.forEach((file) => {
-          if (htmlContent) {
-            // if there is htmlContent, stop manual insertion & let other extensions handle insertion via inputRule
-            // you could extract the pasted file from this url string and upload it to a server for example
-            console.log(htmlContent); // eslint-disable-line no-console
-            return false;
+// Tiptap extensions
+// IMPORTANT: LiteralTab must be placed before StaterKit or ListItem extension(s) in order to retain
+// the default 'indent using Tab' keyboard shortcut for lists
+const extensions = [
+  LiteralTab,
+  Mathematics.configure({
+    shouldRender: (state, pos, node) => {
+      const $pos = state.doc.resolve(pos);
+      return node.type.name === 'text' && $pos.parent.type.name !== 'codeBlock';
+    },
+  }),
+  StarterKit.configure({
+    // Disable an included extension
+    codeBlock: false,
+  }),
+  Highlight,
+  TextAlign.configure({
+    types: ['heading', 'paragraph'],
+  }),
+  Underline,
+  Color,
+  TextStyle,
+  CharacterCount,
+  Typography,
+  CodeBlockLowlight.extend({
+    addNodeView() {
+      return ReactNodeViewRenderer(CodeBlockNode);
+    },
+    addKeyboardShortcuts() {
+      return {
+        Tab: () => {
+          if (this.editor.isActive('codeBlock')) {
+            this.editor.commands.insertContent('\t');
+            return true; // Indicate the command was handled
           }
+          return false; // Indicate the command was not handled
+        },
+      };
+    },
+  }).configure({
+    lowlight,
+  }),
+  Table.configure({
+    resizable: true,
+  }),
+  TableRow,
+  TableHeader,
+  TableCell,
+  Image.configure({
+    allowBase64: true,
+  }),
+  FileHandler.configure({
+    allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
+    onDrop: (currentEditor, files, pos) => {
+      files.forEach((file) => {
+        const fileReader = new FileReader();
 
-          const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+          currentEditor
+            .chain()
+            .insertContentAt(pos, {
+              type: 'image',
+              attrs: {
+                src: fileReader.result,
+              },
+            })
+            .focus()
+            .run();
+        };
+      });
+    },
+    onPaste: (currentEditor, files, htmlContent) => {
+      files.forEach((file) => {
+        if (htmlContent) {
+          // if there is htmlContent, stop manual insertion & let other extensions handle insertion via inputRule
+          // you could extract the pasted file from this url string and upload it to a server for example
+          console.log(htmlContent); // eslint-disable-line no-console
+          return false;
+        }
 
-          fileReader.readAsDataURL(file);
-          fileReader.onload = () => {
-            currentEditor
-              .chain()
-              .insertContentAt(currentEditor.state.selection.anchor, {
-                type: 'image',
-                attrs: {
-                  src: fileReader.result,
-                },
-              })
-              .focus()
-              .run();
-          };
-        });
-      },
-    }),
-    FontFamily,
-    FontSize,
-  ];
+        const fileReader = new FileReader();
 
-  // Set base classes for editor styling because tailwind removes them by default
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+          currentEditor
+            .chain()
+            .insertContentAt(currentEditor.state.selection.anchor, {
+              type: 'image',
+              attrs: {
+                src: fileReader.result,
+              },
+            })
+            .focus()
+            .run();
+        };
+      });
+    },
+  }),
+  FontFamily,
+  FontSize,
+  PageBreak,
+];
+
+// Base classes for editor styling because tailwind removes them by default
+const defaultProseMirrorClasses =
+  'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none';
+
+// Set up code block syntax highlighting
+lowlight.registerLanguage('html', html);
+lowlight.registerLanguage('css', css);
+lowlight.registerLanguage('js', js);
+lowlight.registerLanguage('ts', ts);
+lowlight.registerLanguage('python', python);
+lowlight.registerLanguage('c', c);
+lowlight.registerLanguage('cpp', cpp);
+
+export default function Editor() {
   const editorProps = {
     attributes: {
-      class:
-        'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none',
+      class: defaultProseMirrorClasses,
     },
   };
 
