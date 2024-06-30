@@ -161,6 +161,12 @@ const extensions = [
   FontFamily,
   FontSize,
   PageBreak,
+  Placeholder.configure({
+
+    placeholder: 'Write something …',
+
+  }),
+
 ];
 
 // Base classes for editor styling because tailwind removes them by default
