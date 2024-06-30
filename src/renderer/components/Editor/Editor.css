@@ -14,9 +14,15 @@
 }
 
 /* Styles for text */
-.ProseMirror > p {
-  font-size: 11pt;
-  margin: 0px;
+
+.ProseMirror {
+  p,
+  li,
+  ul,
+  ol {
+    font-size: 11pt;
+    margin: 0px;
+  }
 }
 
 /* Styles for tables */
