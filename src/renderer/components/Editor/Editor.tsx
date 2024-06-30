@@ -2,7 +2,7 @@
 import MenuBar from '@/src/renderer/components/MenuBar/MenuBar';
 import Toolbar from '@/src/renderer/components/Toolbar/Toolbar';
 import WordCounter from '@/src/renderer/components/WordCounter';
-import CodeBlockNode from '@/src/renderer/components/CodeBlockNode';
+import CodeBlockNode from '@/src/renderer/components/CodeBlockComponent';
 
 // Tiptap components
 import { EditorProvider, ReactNodeViewRenderer } from '@tiptap/react';
@@ -42,7 +42,7 @@ import '@/src/renderer/components/Editor/Editor.css';
 
 // Others
 import 'katex/dist/katex.min.css';
-import { loremIpsum } from '@/lib/testContent';
+import { loremIpsum, code } from '@/lib/testContent';
 
 const editorHeader = (
   <>
@@ -188,7 +188,7 @@ export default function Editor() {
       slotBefore={editorHeader}
       slotAfter={editorFooter}
       editorProps={editorProps}
-      content={loremIpsum}
+      content={code}
     ></EditorProvider>
   );
 }

@@ -77,17 +77,12 @@ table {
 
 /* Styles for code blocks and syntax highlighting */
 pre {
-  background: #0d0d0d;
-  border-radius: 0.5rem;
-  color: #fff;
-  font-family: 'JetBrainsMono', monospace;
-  padding: 0.75rem 1rem;
+  background-color: transparent !important;
+  border: 1px solid #d4d4d4;
+  font-family: 'Roboto Mono', monospace !important;
 
   code {
-    background: none;
-    color: inherit;
-    font-size: 0.8rem;
-    padding: 0;
+    color: #4d4d4c !important;
   }
 
   .hljs-comment,
@@ -105,7 +100,7 @@ pre {
   .hljs-name,
   .hljs-selector-id,
   .hljs-selector-class {
-    color: #f98181;
+    color: #c82829;
   }
 
   .hljs-number,
@@ -115,23 +110,23 @@ pre {
   .hljs-literal,
   .hljs-type,
   .hljs-params {
-    color: #fbbc88;
+    color: #f5871f;
   }
 
   .hljs-string,
   .hljs-symbol,
   .hljs-bullet {
-    color: #b9f18d;
+    color: #718c00;
   }
 
   .hljs-title,
   .hljs-section {
-    color: #faf594;
+    color: #eab700;
   }
 
   .hljs-keyword,
   .hljs-selector-tag {
-    color: #70cff8;
+    color: #4271ae;
   }
 
   .hljs-emphasis {
@@ -144,17 +139,6 @@ pre {
 }
 
 .tiptap {
-  .codeBlock {
-    position: relative;
-
-    select {
-      position: absolute;
-      background-color: white;
-
-      right: 0.5rem;
-      top: 0.5rem;
-    }
-  }
   img {
     display: block;
     height: auto;
