@@ -39,11 +39,12 @@ const PageBreak = Node.create({
     };
   },
 
-  addKeyboardShortcuts() {
-    return {
-      'Mod-Enter': () => this.editor.commands.setPageBreak(),
-    };
-  },
+  // Disabled while page breaks are still WIP
+  // addKeyboardShortcuts() {
+  //   return {
+  //     'Mod-Enter': () => this.editor.commands.setPageBreak(),
+  //   };
+  // },
 });
 
 export default PageBreak;
