@@ -42,7 +42,7 @@ import '@/src/renderer/components/Editor/Editor.css';
 
 // Others
 import 'katex/dist/katex.min.css';
-import { loremIpsum, code } from '@/lib/testContent';
+import { loremIpsum, code, table } from '@/lib/testContent';
 
 const editorHeader = (
   <>
@@ -188,7 +188,7 @@ export default function Editor() {
       slotBefore={editorHeader}
       slotAfter={editorFooter}
       editorProps={editorProps}
-      content={code}
+      content={table}
     ></EditorProvider>
   );
 }
