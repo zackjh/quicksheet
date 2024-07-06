@@ -5,6 +5,7 @@ import WordCounter from '@/src/renderer/components/WordCounter';
 import CodeBlockNode from '@/src/renderer/components/CodeBlockComponent';
 
 // Tiptap components
+
 import { EditorProvider, ReactNodeViewRenderer } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import { Color } from '@tiptap/extension-color';
@@ -185,12 +186,15 @@ export default function Editor() {
     },
   };
 
+
+
   return (
     <EditorProvider
       extensions={extensions}
       slotBefore={editorHeader}
       slotAfter={editorFooter}
       editorProps={editorProps}
+      content={localStorage.getItem('content')}
     ></EditorProvider>
   );
 }
