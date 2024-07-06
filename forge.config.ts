@@ -14,13 +14,14 @@ import { rendererConfig } from './webpack.renderer.config';
 const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
+    icon: './build/icons/png/512x512.png',
   },
   rebuildConfig: {},
   makers: [
-    new MakerSquirrel({}),
+    new MakerSquirrel({setupIcon: './build/icons/win/icon.ico'}),
     new MakerZIP({}, ['darwin']),
-    new MakerRpm({}),
-    new MakerDeb({}),
+    new MakerRpm({options:{icon: './build/icons/png/512x512.png'}}),
+    new MakerDeb({options:{icon: './build/icons/png/512x512.png'}}),
   ],
   plugins: [
     new AutoUnpackNativesPlugin({}),
