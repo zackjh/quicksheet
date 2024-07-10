@@ -1,4 +1,14 @@
-import { app, BrowserWindow, Menu, MenuItem } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  Menu,
+  MenuItem,
+  ipcMain,
+  IpcMainEvent,
+} from 'electron';
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
 
 // Declare webpack constants for entry points
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -72,6 +82,24 @@ function createWindow(): void {
   });
 }
 
+function handlePrintAsPDF(event: IpcMainEvent, title: string) {
+  console.log('handlePrintAsPDF in the main process was fired!');
+  const contents = event.sender;
+
+  const pdfPath = path.join(os.homedir(), 'Desktop', 'temp.pdf');
+  const options = {};
+
+  contents.printToPDF(options).then((data) => {
+    fs.writeFile(pdfPath, data, (error) => {
+      if (error) {
+        console.error(`Failed to write PDF to ${pdfPath}: `, error);
+      } else {
+        console.log(`Wrote PDF successfully to ${pdfPath}`);
+      }
+    });
+  });
+}
+
 // Quit when all windows are closed, except on macOS.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -88,5 +116,6 @@ app.on('activate', () => {
 
 // Create the main window when Electron has finished initialization
 app.on('ready', () => {
+  ipcMain.on('print-as-pdf', handlePrintAsPDF);
   createWindow();
 });
