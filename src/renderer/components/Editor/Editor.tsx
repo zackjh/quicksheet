@@ -186,8 +186,6 @@ export default function Editor() {
     },
   };
 
-
-
   return (
     <EditorProvider
       extensions={extensions}

@@ -8,26 +8,21 @@ import { clsx } from 'clsx';
 import { content } from 'html2canvas/dist/types/css/property-descriptors/content';
 
 export default function AlignCenterButton() {
-
-
   const { editor } = useCurrentEditor();
-  const content =editor?.getHTML() ?? "";
+  const content = editor?.getHTML() ?? '';
   const [debouncedEditor] = useDebounce(editor?.state.doc.content, 2000);
 
   useEffect(() => {
-    const SaveLocalInfo: () => void = () =>{
-
-      window.localStorage.setItem("content", content);
-      console.log("Saved to local storage");
+    const SaveLocalInfo: () => void = () => {
+      window.localStorage.setItem('content', content);
+      console.log('Saved to local storage');
       console.log(content);
     };
 
-    if (debouncedEditor){
+    if (debouncedEditor) {
       SaveLocalInfo();
     }
   }, [debouncedEditor, content]);
-
-
 
   const handleAlignCenter = () => {
     editor?.chain().focus().setTextAlign('center').run();
@@ -53,5 +48,3 @@ export default function AlignCenterButton() {
     </Button>
   );
 }
-
-

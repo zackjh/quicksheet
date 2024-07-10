@@ -44,7 +44,9 @@ export default function FileMenu() {
           File
         </MenubarTrigger>
         <MenubarContent>
-          <MenubarItem onClick={() => editor?.commands.clearContent()}>New</MenubarItem>
+          <MenubarItem onClick={() => editor?.commands.clearContent()}>
+            New
+          </MenubarItem>
           <MenubarItem onClick={() => fileInputRef.current?.click()}>
             Import
           </MenubarItem>
