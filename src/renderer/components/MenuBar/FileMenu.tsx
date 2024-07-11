@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useCurrentEditor } from '@tiptap/react';
-import printAsPDF from '@/lib/printAsPDF';
+import html2canvas from 'html2canvas';
+import { saveAs } from 'file-saver';
 import importFile from '@/lib/importFile';
 import exportAsJSON from '@/lib/exportAsJSON';
 import { getProseMirror, pixelsToCm, isNumber } from '@/lib/utils';
@@ -37,6 +38,22 @@ export default function FileMenu() {
     }
   };
 
+  const handleSaveAsPDF = async () => {
+    const element = document.getElementsByClassName('tiptap')[0] as HTMLElement;
+    console.log(element);
+    if (element) {
+      const canvas = await html2canvas(element, {
+        backgroundColor: null, // To preserve the background color
+        useCORS: true, // To handle CORS issues if any
+      });
+      canvas.toBlob((blob) => {
+        if (blob) {
+          saveAs(blob, 'quicksheet.png');
+        }
+      });
+    }
+  };
+
   return (
     <Dialog>
       <MenubarMenu>
@@ -60,15 +77,7 @@ export default function FileMenu() {
           >
             Export
           </MenubarItem>
-          <MenubarItem
-            onClick={() => {
-              if (editor) {
-                printAsPDF(editor);
-              }
-            }}
-          >
-            Print
-          </MenubarItem>
+          <MenubarItem onClick={handleSaveAsPDF}>Print</MenubarItem>
           <MenubarSeparator />
           <DialogTrigger asChild>
             <MenubarItem>Page Setup</MenubarItem>

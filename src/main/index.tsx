@@ -1,14 +1,4 @@
-import {
-  app,
-  BrowserWindow,
-  Menu,
-  MenuItem,
-  ipcMain,
-  IpcMainEvent,
-} from 'electron';
-import fs from 'fs';
-import path from 'path';
-import os from 'os';
+import { app, BrowserWindow, Menu, MenuItem } from 'electron';
 
 // Declare webpack constants for entry points
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -82,43 +72,6 @@ function createWindow(): void {
   });
 }
 
-function handlePrintAsPDF(event: IpcMainEvent, htmlContent: string) {
-  console.log('handlePrintAsPDF in the main process was fired!');
-  console.log(htmlContent);
-
-  const printWindow = new BrowserWindow({ show: false });
-  printWindow.loadURL(`data:text/html,${encodeURIComponent(htmlContent)}`);
-
-  const pdfPath = path.join(os.homedir(), 'Desktop', 'testing_again.pdf');
-  const options = {};
-
-  printWindow.webContents.on('did-finish-load', async () => {
-    console.log('did-finish-load did indeed fire.');
-
-    const pdfBuffer = await printWindow.webContents.printToPDF(options);
-
-    fs.writeFile(pdfPath, pdfBuffer, (error) => {
-      if (error) {
-        console.error(`Failed to write PDF to ${pdfPath}: `, error);
-      } else {
-        console.log(`Wrote PDF successfully to ${pdfPath}`);
-      }
-    });
-
-    printWindow.close();
-  });
-
-  // printWindow.webContents.printToPDF(options).then((data) => {
-  //   fs.writeFile(pdfPath, data, (error) => {
-  //     if (error) {
-  //       console.error(`Failed to write PDF to ${pdfPath}: `, error);
-  //     } else {
-  //       console.log(`Wrote PDF successfully to ${pdfPath}`);
-  //     }
-  //   });
-  // });
-}
-
 // Quit when all windows are closed, except on macOS.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -135,6 +88,5 @@ app.on('activate', () => {
 
 // Create the main window when Electron has finished initialization
 app.on('ready', () => {
-  ipcMain.on('print-as-pdf', handlePrintAsPDF);
   createWindow();
 });
