@@ -82,22 +82,41 @@ function createWindow(): void {
   });
 }
 
-function handlePrintAsPDF(event: IpcMainEvent, title: string) {
+function handlePrintAsPDF(event: IpcMainEvent, htmlContent: string) {
   console.log('handlePrintAsPDF in the main process was fired!');
-  const contents = event.sender;
+  console.log(htmlContent);
 
-  const pdfPath = path.join(os.homedir(), 'Desktop', 'temp.pdf');
+  const printWindow = new BrowserWindow({ show: false });
+  printWindow.loadURL(`data:text/html,${encodeURIComponent(htmlContent)}`);
+
+  const pdfPath = path.join(os.homedir(), 'Desktop', 'testing_again.pdf');
   const options = {};
 
-  contents.printToPDF(options).then((data) => {
-    fs.writeFile(pdfPath, data, (error) => {
+  printWindow.webContents.on('did-finish-load', async () => {
+    console.log('did-finish-load did indeed fire.');
+
+    const pdfBuffer = await printWindow.webContents.printToPDF(options);
+
+    fs.writeFile(pdfPath, pdfBuffer, (error) => {
       if (error) {
         console.error(`Failed to write PDF to ${pdfPath}: `, error);
       } else {
         console.log(`Wrote PDF successfully to ${pdfPath}`);
       }
     });
+
+    printWindow.close();
   });
+
+  // printWindow.webContents.printToPDF(options).then((data) => {
+  //   fs.writeFile(pdfPath, data, (error) => {
+  //     if (error) {
+  //       console.error(`Failed to write PDF to ${pdfPath}: `, error);
+  //     } else {
+  //       console.log(`Wrote PDF successfully to ${pdfPath}`);
+  //     }
+  //   });
+  // });
 }
 
 // Quit when all windows are closed, except on macOS.

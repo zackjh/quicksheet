@@ -3,7 +3,7 @@ export {};
 declare global {
   interface Window {
     electronAPI: {
-      printAsPDF: () => Promise<Buffer>;
+      printAsPDF: (htmlContent: string) => Promise<Buffer>;
     };
   }
 }

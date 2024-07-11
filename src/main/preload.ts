@@ -1,5 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron';
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  printAsPDF: () => ipcRenderer.send('print-as-pdf'),
+  printAsPDF: (htmlContent: string) =>
+    ipcRenderer.send('print-as-pdf', htmlContent),
 });
