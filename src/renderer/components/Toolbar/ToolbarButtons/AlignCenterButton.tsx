@@ -15,8 +15,8 @@ export default function AlignCenterButton() {
   useEffect(() => {
     const SaveLocalInfo: () => void = () => {
       window.localStorage.setItem('content', content);
-      console.log('Saved to local storage');
-      console.log(content);
+      // console.log('Saved to local storage');
+      // console.log(content);
     };
 
     if (debouncedEditor) {
