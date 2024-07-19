@@ -2,15 +2,16 @@
   /* Styles for page */
   /* aspect-ratio: 1/1.414; */
   background-color: #ffffff;
-  border: 1px solid #c7c7c7;
+  /* border: 1px solid #c7c7c7; */
   font-family: 'Inter Variable';
-  margin: auto;
   outline: none;
-  padding-top: 2.54cm;
+  /* padding-top: 2.54cm;
   padding-bottom: 2.54cm;
   padding-left: 2.54cm;
-  padding-right: 2.54cm;
-  width: 794px;
+  padding-right: 2.54cm; */
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
 
   /* Styles for text and lists */
   p,

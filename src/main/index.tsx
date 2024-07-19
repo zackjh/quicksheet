@@ -1,4 +1,15 @@
-import { app, BrowserWindow, Menu, MenuItem } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  dialog,
+  ipcMain,
+  IpcMainEvent,
+  Menu,
+  MenuItem,
+} from 'electron';
+import path from 'path';
+import os from 'os';
+import fs from 'fs';
 
 // Declare webpack constants for entry points
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -72,6 +83,96 @@ function createWindow(): void {
   });
 }
 
+function handlePrintAsPDF(
+  event: IpcMainEvent,
+  htmlContent: string,
+  margins: Margins
+) {
+  // Open save dialog to get the PDF path
+  const pdfPath = dialog.showSaveDialogSync({
+    title: 'Save PDF',
+    defaultPath: path.join(os.homedir(), 'Desktop', 'quicksheet.pdf'),
+    filters: [{ name: 'PDF Files', extensions: ['pdf'] }],
+  });
+
+  if (!pdfPath) {
+    // User canceled the save dialog
+    return;
+  }
+
+  // Create a new window just for printing purposes
+  const printWindow = new BrowserWindow({
+    show: false,
+    width: 794,
+    height: 1123,
+    webPreferences: { nodeIntegration: true, contextIsolation: false },
+  });
+
+  // Add CSS styles to HTML content
+  const editorStyles = fs.readFileSync(
+    path.resolve(__dirname, '../../public/editor.css')
+  );
+
+  const tailwindStyles = fs.readFileSync(
+    path.resolve(__dirname, '../../public/tailwind.css')
+  );
+
+  const tiptapStyles = fs.readFileSync(
+    path.resolve(__dirname, '../../public/tiptap.css')
+  );
+
+  const styledHTMLContent = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <style>
+          ${editorStyles}
+        </style>
+        <style>
+          ${tailwindStyles}
+        </style>
+        <style>
+          ${tiptapStyles}
+        </style>
+      </head>
+      <body class="tiptap ProseMirror prose">
+        ${htmlContent}
+      </body>
+    </html>
+  `;
+
+  // Load HTML content with CSS styles into printWindow
+  printWindow.loadURL(
+    `data:text/html;charset=utf-8,${encodeURIComponent(styledHTMLContent)}`
+  );
+
+  printWindow.webContents.on('did-finish-load', () => {
+    printWindow.webContents
+      .printToPDF({
+        pageSize: 'A4',
+        margins: {
+          top: margins.top * 0.393701,
+          bottom: margins.bottom * 0.393701,
+          left: margins.left * 0.393701,
+          right: margins.right * 0.393701,
+        },
+        printBackground: true,
+      })
+      .then((data) => {
+        fs.writeFile(pdfPath, data, (error) => {
+          if (error) throw error;
+          console.log(`Wrote PDF successfully to ${pdfPath}`);
+        });
+      })
+      .catch((error) => {
+        console.log(`Failed to write PDF to ${pdfPath}: `, error);
+      })
+      .finally(() => {
+        printWindow.close();
+      });
+  });
+}
+
 // Quit when all windows are closed, except on macOS.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -88,5 +189,13 @@ app.on('activate', () => {
 
 // Create the main window when Electron has finished initialization
 app.on('ready', () => {
+  ipcMain.on('print-as-pdf', handlePrintAsPDF);
   createWindow();
 });
+
+interface Margins {
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+}
