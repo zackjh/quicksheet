@@ -134,6 +134,12 @@ function handlePrintAsPDF(
         <style>
           ${tiptapStyles}
         </style>
+        <link href="https://cdn.jsdelivr.net/npm/@fontsource-variable/eb-garamond/index.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/@fontsource-variable/inter/index.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/@fontsource-variable/roboto-mono/index.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/@fontsource/fira-mono/index.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/@fontsource/merriweather/index.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/@fontsource/roboto/index.css" rel="stylesheet">
       </head>
       <body class="tiptap ProseMirror prose">
         ${htmlContent}
