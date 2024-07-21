@@ -148,10 +148,7 @@ export function PageSetupDialogContent() {
           setMargins({ ...margins, bottom: newValue });
           break;
         case 'margin-left':
-          setMargins({ ...margins, left: newValue });
-          break;
-        case 'margin-right':
-          setMargins({ ...margins, right: newValue });
+          setMargins({ ...margins, left: newValue, right: newValue });
           break;
         default:
           console.error('An error occurred while updating margins!');
@@ -195,7 +192,8 @@ export function PageSetupDialogContent() {
     prosemirror.style.paddingTop = margins.top + 'cm';
     prosemirror.style.paddingBottom = margins.bottom + 'cm';
     prosemirror.style.paddingLeft = margins.left + 'cm';
-    prosemirror.style.paddingRight = margins.right + 'cm';
+    prosemirror.style.paddingRight = margins.left + 'cm';
+    prosemirror.style.columnGap = margins.left + 1 + 'cm';
   };
 
   const styles = {
@@ -205,7 +203,7 @@ export function PageSetupDialogContent() {
       'font-normal h-8 w-12 p-2 rounded border-slate-500 focus-visible:border-blue-400 focus-visible:ring-1 focus-visible:ring-blue-400 focus-visible:ring-offset-0',
     margins: {
       inputDiv: 'flex items-center ml-px',
-      label: 'w-14 font-normal',
+      label: 'w-28 font-normal',
     },
     button: '',
   };
@@ -306,7 +304,7 @@ export function PageSetupDialogContent() {
             </div>
             <div className={styles.margins.inputDiv}>
               <Label htmlFor='margin-left' className={styles.margins.label}>
-                Left
+                Left and Right
               </Label>
               <Input
                 type='number'
@@ -314,18 +312,6 @@ export function PageSetupDialogContent() {
                 onChange={handleMarginChange}
                 className={styles.numberInput}
                 id='margin-left'
-              />
-            </div>
-            <div className={styles.margins.inputDiv}>
-              <Label htmlFor='margin-right' className={styles.margins.label}>
-                Right
-              </Label>
-              <Input
-                type='number'
-                value={margins.right}
-                onChange={handleMarginChange}
-                className={styles.numberInput}
-                id='margin-right'
               />
             </div>
           </div>

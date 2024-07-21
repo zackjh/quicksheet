@@ -6,7 +6,7 @@ export default function WordCounter() {
   const wordCount = editor?.storage.characterCount.words();
 
   return (
-    <p className='mx-5 text-end'>
+    <p className='mx-10 my-7 text-end'>
       Character Count: {charCount} Word Count: {wordCount}
     </p>
   );

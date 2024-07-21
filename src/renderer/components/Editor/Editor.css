@@ -10,7 +10,12 @@
   padding-bottom: 2.54cm;
   padding-left: 2.54cm;
   padding-right: 2.54cm;
-  width: 794px;
+  max-width: 1688px !important;
+  width: 1688px;
+  height: 1123px;
+  columns: 2;
+  column-gap: 6.08cm;
+  column-fill: auto;
 
   /* Styles for text and lists */
   p,
@@ -139,6 +144,21 @@
       font-weight: 700;
     }
   }
+}
+
+.ProseMirror::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  bottom: 0;
+  left: 50%;
+  width: 1cm;
+  background-color: #fafafa;
+  border-left: 1px solid #c7c7c7;
+  border-right: 1px solid #c7c7c7;
+  transform: translateX(-50%);
+  height: calc(100% + 2px);
+  border-bottom: none;
 }
 
 .tiptap {

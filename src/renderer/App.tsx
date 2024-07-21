@@ -12,7 +12,7 @@ const element = document.getElementById('react-app-root');
 if (element) {
   const root = createRoot(element);
   root.render(
-    <div className='bg-neutral-50'>
+    <div className='h-screen bg-neutral-50'>
       <Editor />
     </div>
   );
