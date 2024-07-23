@@ -22,7 +22,7 @@ function createWindow(): void {
   mainWindow = new BrowserWindow({
     height: 1200,
     width: 800,
-    icon: './build/icons/png/512x512.png',
+    icon: './build/icons/png/icon.png',
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
