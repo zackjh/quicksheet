@@ -87,7 +87,7 @@ export default function FileMenu() {
           type='file'
           ref={fileInputRef}
           style={{ display: 'none' }}
-          accept='.json'
+          accept='.qs'
           onChange={(event) => handleFileUpload(event)}
         />
       </MenubarMenu>
