@@ -35,6 +35,7 @@ function createWindow(): void {
 
   // Open the DevTools if needed.
   // mainWindow.webContents.openDevTools();
+  Menu.setApplicationMenu(null);
 
   // Handle context menu for spelling suggestions and dictionary
   mainWindow.webContents.on('context-menu', (event, params) => {
