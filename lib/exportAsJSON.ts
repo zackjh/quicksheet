@@ -11,7 +11,7 @@ export default function exportAsJSON(editor: Editor) {
   // Create a link element and trigger the download
   const link = document.createElement('a');
   link.href = url;
-  link.download = 'editor-content.json';
+  link.download = 'editor-content.qs';
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

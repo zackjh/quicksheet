@@ -22,7 +22,7 @@ function createWindow(): void {
   mainWindow = new BrowserWindow({
     height: 1200,
     width: 800,
-    icon: './build/icons/png/512x512.png',
+    icon: './build/icons/png/icon.png',
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
@@ -35,6 +35,7 @@ function createWindow(): void {
 
   // Open the DevTools if needed.
   // mainWindow.webContents.openDevTools();
+  Menu.setApplicationMenu(null);
 
   // Handle context menu for spelling suggestions and dictionary
   mainWindow.webContents.on('context-menu', (event, params) => {
