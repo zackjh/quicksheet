@@ -1,5 +1,6 @@
 import FileMenu from '@/src/renderer/components/MenuBar/FileMenu';
 import InsertMenu from '@/src/renderer/components/MenuBar/InsertMenu';
+import HelpMenu from '@/src/renderer/components/MenuBar/HelpMenu';
 import {
   Menubar,
   MenubarContent,
@@ -7,6 +8,7 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from '@/src/renderer/ui/menubar';
+
 
 export const menubarStyles = {
   menubarTrigger:
@@ -27,6 +29,7 @@ export default function MenuBar() {
         </MenubarContent>
       </MenubarMenu>
       <InsertMenu />
+      <HelpMenu />
     </Menubar>
   );
 }
