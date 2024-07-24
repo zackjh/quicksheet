@@ -9,7 +9,6 @@ import {
   MenubarTrigger,
 } from '@/src/renderer/ui/menubar';
 
-
 export const menubarStyles = {
   menubarTrigger:
     'm-0 h-6 rounded-none hover:cursor-pointer hover:bg-neutral-200 data-[state=open]:bg-neutral-300',

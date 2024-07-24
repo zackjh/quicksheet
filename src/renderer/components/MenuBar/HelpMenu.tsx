@@ -19,19 +19,19 @@ import {
 
 export default function HelpMenu() {
   return (
-  <Dialog>
-    <MenubarMenu>
-      <MenubarTrigger className={menubarStyles.menubarTrigger}>
-        Help
-      </MenubarTrigger>
-      <MenubarContent>
-        <DialogTrigger asChild>
-        < MenubarItem>Documentation</MenubarItem>
-        </DialogTrigger>
-      </MenubarContent>
-      <HelpModalContent />
-    </MenubarMenu>
-  </Dialog>
+    <Dialog>
+      <MenubarMenu>
+        <MenubarTrigger className={menubarStyles.menubarTrigger}>
+          Help
+        </MenubarTrigger>
+        <MenubarContent>
+          <DialogTrigger asChild>
+            <MenubarItem>Documentation</MenubarItem>
+          </DialogTrigger>
+        </MenubarContent>
+        <HelpModalContent />
+      </MenubarMenu>
+    </Dialog>
   );
 }
 
@@ -39,7 +39,9 @@ export function HelpModalContent() {
   return (
     <DialogContent className='w-auto'>
       <DialogHeader>
-        <DialogTitle className='text-2xl font-normal'>Documentation</DialogTitle>
+        <DialogTitle className='text-2xl font-normal'>
+          Documentation
+        </DialogTitle>
       </DialogHeader>
       <div className='flex justify-between'>
         <div className='space-y-5'>
@@ -61,18 +63,17 @@ export function HelpModalContent() {
             <strong>Ctrl + Y</strong> - Redo
           </p>
           <p>
-            <strong>$ Y = mX + C  $</strong> - Insert LaTeX
+            <strong>$ Y = mX + C $</strong> - Insert LaTeX
           </p>
           <p>
-            <strong>```javascript </strong> - Insert code block with javascript syntax
+            <strong>```javascript </strong> - Insert code block with javascript
+            syntax
           </p>
           <p>
             <strong>Tab / Tab Shift</strong> - Indent/ Undo indent
           </p>
-
         </div>
       </div>
-
     </DialogContent>
   );
 }
