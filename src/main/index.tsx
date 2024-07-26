@@ -34,7 +34,7 @@ function createWindow(): void {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools if needed.
-  // mainWindow.webContents.openDevTools();
+   mainWindow.webContents.openDevTools();
   Menu.setApplicationMenu(null);
 
   // Handle context menu for spelling suggestions and dictionary
