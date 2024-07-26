@@ -111,15 +111,15 @@ function handlePrintAsPDF(
 
   // Add CSS styles to HTML content
   const editorStyles = fs.readFileSync(
-    path.resolve(__dirname, '../../public/editor.css')
+    path.resolve(__dirname, '../../../public/editor.css')
   );
 
   const tailwindStyles = fs.readFileSync(
-    path.resolve(__dirname, '../../public/tailwind.css')
+    path.resolve(__dirname, '../../../public/tailwind.css')
   );
 
   const tiptapStyles = fs.readFileSync(
-    path.resolve(__dirname, '../../public/tiptap.css')
+    path.resolve(__dirname, '../../../public/tiptap.css')
   );
 
   const styledHTMLContent = `
