@@ -1,12 +1,10 @@
 import { browser } from '@wdio/globals'
+import { Key } from 'webdriverio';
+
 
 async function cleareditor(editor: WebdriverIO.Element) {
-  for (let i= 0; i< 100; i++) {
-    await browser.keys('Backspace');
-    await browser.pause(1); // Pause between keystrokes to simulate real typing speed
-    await browser.keys('Delete');
-    await browser.pause(1); // Pause between keystrokes to simulate real typing speed
-  }
+  await browser.keys([Key.Ctrl, 'a'])
+  await browser.keys('Backspace')
 }
 
 
@@ -41,6 +39,48 @@ describe('Test inserting text', () => {
     await browser.pause(1000); // Pause to observe the typed text
   });
   })
+  describe('Test inserting text with bold,italic, underline', () => {
+    it('Changing text marks', async () => {
+    const editor = await $('.tiptap.ProseMirror[contenteditable="true"]');
+
+      // Click the editor to focus it
+    await editor.click()
+    await browser.keys([Key.Ctrl, 'a'])
+    await browser.keys([Key.Ctrl, 'b'])
+    await expect(editor).toHaveHTML(expect.stringContaining('<strong>Hello, this is a test typing into Tiptap!</strong>'));
+    await browser.keys([Key.Ctrl, 'a'])
+    await browser.keys([Key.Ctrl, 'i'])
+    await expect(editor).toHaveHTML(expect.stringContaining('<em>Hello, this is a test typing into Tiptap!</em>'));
+    await browser.keys([Key.Ctrl, 'u'])
+    await expect(editor).toHaveHTML(expect.stringContaining('<u>Hello, this is a test typing into Tiptap!</u>'));
+
+    await browser.pause(1000)
+    await cleareditor(editor)
+
+
+  })
+  })
+
+describe('Test inserting text with bullet points', () => {
+  it('creating bullet lists', async () => {
+    const editor = await $('.tiptap.ProseMirror[contenteditable="true"]');
+
+      // Click the editor to focus it
+    await editor.click()
+    await browser.keys('-')
+    await browser.keys(' ')
+    await browser.keys('hi')
+    await expect(editor).toHaveHTML(expect.stringContaining('<ul><li><p>hi</p></li></ul>'));
+    await cleareditor(editor)
+    await editor.click()
+    await browser.keys('1')
+    await browser.keys('.')
+    await browser.keys(' ')
+    await browser.keys('hi')
+    await expect(editor).toHaveHTML(expect.stringContaining('<ol><li><p>hi</p></li></ol>'));
+    await cleareditor(editor)
+  })
+})
 
 describe('Test inserting text into codeblock', () => {
   it('Types text successfully', async () => {
