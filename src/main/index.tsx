@@ -154,29 +154,31 @@ function handlePrintAsPDF(
   );
 
   printWindow.webContents.on('did-finish-load', () => {
-    printWindow.webContents
-      .printToPDF({
-        pageSize: 'A4',
-        margins: {
-          top: margins.top * 0.393701,
-          bottom: margins.bottom * 0.393701,
-          left: margins.left * 0.393701,
-          right: margins.right * 0.393701,
-        },
-        printBackground: true,
-      })
-      .then((data) => {
-        fs.writeFile(pdfPath, data, (error) => {
-          if (error) throw error;
-          console.log(`Wrote PDF successfully to ${pdfPath}`);
+    setTimeout(() => {
+      printWindow.webContents
+        .printToPDF({
+          pageSize: 'A4',
+          margins: {
+            top: margins.top * 0.393701,
+            bottom: margins.bottom * 0.393701,
+            left: margins.left * 0.393701,
+            right: margins.right * 0.393701,
+          },
+          printBackground: true,
+        })
+        .then((data) => {
+          fs.writeFile(pdfPath, data, (error) => {
+            if (error) throw error;
+            console.log(`Wrote PDF successfully to ${pdfPath}`);
+          });
+        })
+        .catch((error) => {
+          console.log(`Failed to write PDF to ${pdfPath}: `, error);
+        })
+        .finally(() => {
+          printWindow.close();
         });
-      })
-      .catch((error) => {
-        console.log(`Failed to write PDF to ${pdfPath}: `, error);
-      })
-      .finally(() => {
-        printWindow.close();
-      });
+    }, 2000);
   });
 }
 
